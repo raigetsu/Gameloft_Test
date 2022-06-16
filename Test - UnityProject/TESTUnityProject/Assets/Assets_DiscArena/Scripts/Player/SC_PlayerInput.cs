@@ -43,7 +43,7 @@ public class SC_PlayerInput : MonoBehaviour
                 else if (Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
 
-                    gameManager.LaunchDisc(direction, 4);
+                    gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
                 }
             }
 #endif
@@ -59,7 +59,7 @@ public class SC_PlayerInput : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                gameManager.LaunchDisc(direction, 4);
+                gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
             }
 
             if (Input.GetMouseButton(0))

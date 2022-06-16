@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2155607066313236155}
   m_Layer: 0
-  m_Name: Prefab_DiscTest
+  m_Name: Prefab_DiscSprinter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,6 +82,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 1e3da6ed0b6af9d43a5bd947f56cc516, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: 1e3da6ed0b6af9d43a5bd947f56cc516, type: 3}
       propertyPath: m_Name
       value: Mesh_Puck_Classic
@@ -132,7 +136,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5210344285577544205, guid: 1e3da6ed0b6af9d43a5bd947f56cc516, type: 3}
---- !u!114 &3702554945946407104
+--- !u!114 &8342534308874129608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,15 +145,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4861469955948169398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d829331de633114cac01e3c5ddc1778, type: 3}
+  m_Script: {fileID: 11500000, guid: b085b203e78091549937b5708dbb5da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4716783713707193751}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
-  attack: 2
-  moveSpeed: 6
+  attack: 3
+  moveSpeed: 8
   OnMovementStop:
     m_PersistentCalls:
       m_Calls: []
