@@ -5,7 +5,12 @@ using UnityEngine;
 public class SC_PlayerInput : MonoBehaviour
 {
     [SerializeField] private SC_GameManager gameManager = null;
+    [SerializeField] private SC_MovementPrediction movementPrediction = null;
+    [SerializeField] private float delayBeforeUpdatePrediction = 0.01f;
     Vector3 inputStartPos = Vector3.zero; // Pos of finger or mouse when player press
+    Vector3 direction = Vector3.zero;
+
+    float timerBeforeUpdatePrediction = 0f;
 
     // Update is called once per frame
     void Update()
@@ -19,14 +24,26 @@ public class SC_PlayerInput : MonoBehaviour
                 {
                     inputStartPos = Input.GetTouch(0).position;
                 }
+                else if (Input.GetTouch(0).phase == TouchPhase.Moved)
+                {
+                    direction = (Input.mousePosition - inputStartPos);
+                    direction.z = direction.y;
+                    direction.y = 0f;
+                    if (timerBeforeUpdatePrediction <= 0f)
+                    {
+                        movementPrediction.CalculateTrajectory(gameManager.GetDiscPosition(), direction, 0f, 0);
+                        timerBeforeUpdatePrediction = delayBeforeUpdatePrediction;
+                    }
+                    else
+                    {
+                        timerBeforeUpdatePrediction -= Time.deltaTime;
+                    }
+                    direction = direction.normalized;
+                }
                 else if (Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
-                    Vector3 _Direction = inputStartPos;
-                    _Direction.x = Input.GetTouch(0).position.x - inputStartPos.x;
-                    _Direction.y = 0f;
-                    _Direction.z = Input.GetTouch(0).position.y - inputStartPos.y;
-                    _Direction = _Direction.normalized;
-                    gameManager.LaunchDisc(_Direction, 4);
+
+                    gameManager.LaunchDisc(direction, 4);
                 }
             }
 #endif
@@ -35,13 +52,31 @@ public class SC_PlayerInput : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 inputStartPos = Input.mousePosition;
+                direction = (Input.mousePosition - gameManager.GetDiscPosition()).normalized;
+                direction.z = direction.y;
+                direction.y = 0f;
+                timerBeforeUpdatePrediction = 0f;
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                Vector3 _Direction = (Input.mousePosition - inputStartPos).normalized;
-                _Direction.z = _Direction.y;
-                _Direction.y = 0f;
-                gameManager.LaunchDisc(_Direction, 4);
+                gameManager.LaunchDisc(direction, 4);
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                direction = (Input.mousePosition - inputStartPos);
+                direction.z = direction.y;
+                direction.y = 0f;
+                if (timerBeforeUpdatePrediction <= 0f)
+                {
+                    movementPrediction.CalculateTrajectory(gameManager.GetDiscPosition(), direction, 0f, 0);
+                    timerBeforeUpdatePrediction = delayBeforeUpdatePrediction;
+                }
+                else
+                {
+                    timerBeforeUpdatePrediction -= Time.deltaTime;
+                }
+                direction = direction.normalized;
             }
 #endif
         }

@@ -14,9 +14,14 @@ public class SC_GameManager : MonoBehaviour
 
     public GameState gameState { get; private set; } = GameState.WaitToLaunchDisc;
 
-    public void LaunchDisc(Vector3 Direction, float Force = 1f)
+    public void LaunchDisc(Vector3 pDirection, float pForce = 1f)
     {
-        currentDisc.LaunchDisc(Direction, Force);
+        currentDisc.LaunchDisc(pDirection, pForce);
         gameState = GameState.DiscIsMoving;
+    }
+
+    public Vector3 GetDiscPosition()
+    {
+        return currentDisc.gameObject.transform.position;
     }
 }
