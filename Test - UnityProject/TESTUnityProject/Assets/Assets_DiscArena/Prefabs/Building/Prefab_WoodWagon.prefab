@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6673903518032758205}
   m_Layer: 0
-  m_Name: Prefab_WoodFence
+  m_Name: Prefab_WoodWagon
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,127 +27,127 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5546047698361575442}
+  - {fileID: 1460756854442008760}
   - {fileID: 1217153731878403988}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5439571554135150585
+--- !u!1001 &1427394670384039763
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 6673903518032758205}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.000000021855694
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
+    - target: {fileID: 919132149155446097, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
       propertyPath: m_Name
-      value: Mesh_Fence_Wood
+      value: Mesh_Wagon_Wood
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
---- !u!1 &5169099191037113000 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
+--- !u!1 &2237856023019518466 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
-  m_PrefabInstance: {fileID: 5439571554135150585}
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
+  m_PrefabInstance: {fileID: 1427394670384039763}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5546047698361575442 stripped
+--- !u!4 &1460756854442008760 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
-  m_PrefabInstance: {fileID: 5439571554135150585}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 070634222ce0610418a9f8cf7a610719, type: 3}
+  m_PrefabInstance: {fileID: 1427394670384039763}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3719963392235546735
+--- !u!114 &2192159468494558563
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5169099191037113000}
+  m_GameObject: {fileID: 2237856023019518466}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d2be308aa0c3b24792f0b50d1b98365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToScale: {fileID: 5169099191037113000}
+  objectToScale: {fileID: 2237856023019518466}
   scaleAnimationFactor: 1.2
   scaleAnimationSpeed: 2
   OnScaleAnimationOver:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8844367332052315379
+--- !u!114 &7060416969843625184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5169099191037113000}
+  m_GameObject: {fileID: 2237856023019518466}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 482ca5ff6914f44429071ea0dacab339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 10
   textDamagePrefab: {fileID: 3458874354882961216, guid: 32e1d18a77e3d044c97a9ca8e091ff37, type: 3}
   damageTextSpawnPositionOffset: {x: 0, y: 1, z: 0}
   healthBar: {fileID: 2935939785979079864}
-  scaleAnimation: {fileID: 3719963392235546735}
-  key: WoodFence
---- !u!65 &8175269695644769663
+  scaleAnimation: {fileID: 2192159468494558563}
+  key: WoodWagon
+--- !u!65 &6796405603144825908
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5169099191037113000}
+  m_GameObject: {fileID: 2237856023019518466}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0094252, y: 0.95916104, z: 0.3897688}
-  m_Center: {x: 0.000000059604645, y: 0.47958046, z: -0.000000029802322}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.37, z: 0}
 --- !u!1001 &6965939056870782733
 PrefabInstance:
   m_ObjectHideFlags: 0

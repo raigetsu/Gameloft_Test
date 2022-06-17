@@ -46,6 +46,14 @@ MonoBehaviour:
   keys:
   - Chest
   - WoodFence
+  - StoneFence
+  - MetalFence
+  - Rock
+  - WoodWagon
   prefabs:
   - {fileID: 4111236035240473615, guid: 9ae33c6f96fd781458a6710025257e80, type: 3}
   - {fileID: 5984311160464113733, guid: 05da4d464198fbe49bc94a958a045c49, type: 3}
+  - {fileID: 5984311160464113733, guid: c25661ca8a647d340a6139e36cd6aff1, type: 3}
+  - {fileID: 5984311160464113733, guid: 5f52214a6bb35cc4986fad64a9c8f4de, type: 3}
+  - {fileID: 5984311160464113733, guid: 19e2a6ea976258a44858b8591cec576e, type: 3}
+  - {fileID: 5984311160464113733, guid: 6488add42edbbd240a5a5dc690a1598f, type: 3}

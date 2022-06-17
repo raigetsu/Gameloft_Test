@@ -52,9 +52,9 @@ public class SC_GameManager : MonoBehaviour
         discLastPressedButton.IncreaseUsedCount();
     }
 
-    public Vector3 GetDiscPosition()
+    public SC_DiscMaster GetDisc()
     {
-        return currentDisc.gameObject.transform.position;
+        return currentDisc;
     }
 
     #region DISC CHANGEMENT

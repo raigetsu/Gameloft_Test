@@ -23,7 +23,7 @@ public class SC_MovementPrediction : MonoBehaviour
         }
     }
 
-    public void CalculateTrajectory(Vector3 pStartPosition, Vector3 pDirection, float pDistanceDo, int pPointIndex)
+    public void CalculateTrajectory(Vector3 pStartPosition, Vector3 pDirection, float pDistanceDo, int pPointIndex, float pBounciness, float pFriction)
     {
         if (pDistanceDo >= maxDistance)
         {
@@ -79,7 +79,7 @@ public class SC_MovementPrediction : MonoBehaviour
             // Calculate Friction
             // it's not physic accurate to make the calcul more light
             float Time = hit.distance / pDirection.magnitude;
-            float FrictionForce = Time * 0.01f * 40f; // The *40 is to make the friction more accurate (value based on some test)
+            float FrictionForce = Time * pFriction * 40f; // The *40 is to make the friction more accurate (value based on some test)
             Vector3 AbsDir = AbsVector(pDirection);
 
             AbsDir = new Vector3(AbsDir.x - FrictionForce, 0f, AbsDir.z - FrictionForce);
@@ -88,7 +88,7 @@ public class SC_MovementPrediction : MonoBehaviour
             pDirection = AbsDir;
 
             // Calculate normal with bounce factor
-            Vector3 normal = new Vector3(hit.normal.x * 0.5f, 0f, hit.normal.z * 0.5f);
+            Vector3 normal = new Vector3(hit.normal.x * pBounciness, 0f, hit.normal.z * pBounciness);
             normal = AbsVector(normal);
 
             // Calculate the velocity lose with rebound
@@ -101,7 +101,7 @@ public class SC_MovementPrediction : MonoBehaviour
             newDirection.y = 0f;
 
             #endregion
-            CalculateTrajectory(hit.point, newDirection, pDistanceDo + hit.distance, pPointIndex);
+            CalculateTrajectory(hit.point, newDirection, pDistanceDo + hit.distance, pPointIndex, pBounciness, pFriction);
         }
         #region Debug Gizmo
 #if UNITY_EDITOR
@@ -109,7 +109,7 @@ public class SC_MovementPrediction : MonoBehaviour
         else
         {
             if (Application.isPlaying == false)
-            Gizmos.DrawLine(pStartPosition, pDirection * 10f);
+                Gizmos.DrawLine(pStartPosition, pDirection * 10f);
         }
 #endif
         #endregion
@@ -131,6 +131,6 @@ public class SC_MovementPrediction : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        CalculateTrajectory(debugObjectForGizmo.transform.position, debugGizmoDefaultDir, 0f, 0);
+        CalculateTrajectory(debugObjectForGizmo.transform.position, debugGizmoDefaultDir, 0f, 0, 0.25f, 0.01f);
     }
 }
