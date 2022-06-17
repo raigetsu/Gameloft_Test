@@ -9,7 +9,10 @@ public class SC_LevelGeneration : MonoBehaviour
 #if UNITY_EDITOR
     public class LevelGenerationWindow : EditorWindow
     {
-        string fileName = "FileName";
+        SC_Rank.ERank levelRank = SC_Rank.ERank.Bronze;
+        int rankLevel = 3;
+        int rankRow = 0;
+
         string creatorName = "Creator";
 
         [MenuItem("Window/LevelGeneration")]
@@ -21,18 +24,20 @@ public class SC_LevelGeneration : MonoBehaviour
         private void OnGUI()
         {
             GUILayout.Space(20);
-            fileName = EditorGUILayout.TextField("File name : ", fileName);
+            levelRank = (SC_Rank.ERank)EditorGUILayout.EnumPopup(levelRank);
+            rankLevel = EditorGUILayout.IntField(rankLevel);
+            rankRow = EditorGUILayout.IntField(rankRow);
 
             creatorName = EditorGUILayout.TextField("Creator name : ", creatorName);
 
             if (GUILayout.Button("Export Level"))
             {
-                ExportLevel(fileName, creatorName);
+                ExportLevel(SC_Rank.GetLevelName(levelRank, rankLevel, rankRow), creatorName);
             }
 
             if (GUILayout.Button("Load Level"))
             {
-                LoadLevel(fileName);
+                LoadLevel(SC_Rank.GetLevelName(levelRank, rankLevel, rankRow));
             }
         }
     }
@@ -46,7 +51,7 @@ public class SC_LevelGeneration : MonoBehaviour
         public string creatorName = "Creator";
     }
 
-    static public void ExportLevel(string pFileName,string pCreatorName)
+    static public void ExportLevel(string pFileName, string pCreatorName)
     {
         LevelData data = new LevelData();
 
@@ -88,19 +93,41 @@ public class SC_LevelGeneration : MonoBehaviour
         SC_BuildingList buildingList = FindObjectOfType<SC_BuildingList>();
 
 #if UNITY_EDITOR
-        string destination = "Assets/Resources/" + fileName + ".json";
+        string destination = "Assets/StreamingAssets/" + fileName + ".json";
+
+        if (File.Exists(destination) == false)
+        {
+            fileName = SC_Rank.GetLevelName(SC_Rank.ERank.Bronze, 3, 0);
+        }
+        destination = "Assets/StreamingAssets/" + fileName + ".json";
+
         string json = File.ReadAllText(destination);
+
 #elif UNITY_IOS
-         string destination = Application.streamingAssetsPath + "/" + fileName+ ".json";
+        string destination = Application.streamingAssetsPath + "/" + fileName + ".json";
+
+        if (File.Exists(destination) == false)
+        {
+            fileName = SC_Rank.GetLevelName(SC_Rank.ERank.Bronze, 3, 0);
+        }
+        destination = Application.streamingAssetsPath + "/" + fileName + ".json";
+
         string json = File.ReadAllText(destination);
 #elif UNITY_ANDROID
         string destination = "jar:file://" + Application.dataPath + "!/assets/" + fileName + ".json";
         WWW wwwfile = new WWW(destination);
         while (!wwwfile.isDone) { }
-        string filePath = Application.persistentDataPath + "/" + fileName + ".json";
-        File.WriteAllBytes(filePath, wwwfile.bytes);
+        if (wwwfile.Current == null)
+        {
+            fileName = SC_Rank.GetLevelName(SC_Rank.ERank.Bronze, 3, 0);
+            destination = "jar:file://" + Application.dataPath + "!/assets/" + fileName + ".json";
+            wwwfile = new WWW(destination);
+            while (!wwwfile.isDone) { }
+        }
+        fileName = Application.persistentDataPath + "/" + fileName + ".json";
+        File.WriteAllBytes(fileName, wwwfile.bytes);
 
-        StreamReader wr = new StreamReader(filePath);        
+        StreamReader wr = new StreamReader(fileName);
         string json = wr.ReadToEnd();
 #endif
 

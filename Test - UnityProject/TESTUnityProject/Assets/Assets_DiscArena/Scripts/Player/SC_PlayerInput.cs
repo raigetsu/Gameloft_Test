@@ -26,35 +26,44 @@ public class SC_PlayerInput : MonoBehaviour
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    if(gameManager.IsPointerOverUIElement() == false)
+                    if (gameManager.IsPointerOverUIElement() == false)
                     {
                         canUpdate = true;
-                        inputStartPos = Input.GetTouch(0).position;
+                        inputStartPos =  new Vector3(Input.GetTouch(0).position.x, 0f, Input.GetTouch(0).position.y);
                         timerBeforeUpdatePrediction = 0f;
                     }
                     else
                     {
                         canUpdate = false;
-                    }                    
+                    }
                 }
                 // Update prediction
-                else if (canUpdate && Input.GetTouch(0).phase == TouchPhase.Moved)
+                else if (Input.GetTouch(0).phase == TouchPhase.Moved)
                 {
-                    direction = (Input.mousePosition - inputStartPos);
-                    direction.z = direction.y;
-                    direction.y = 0f;
+                    if (canUpdate)
+                    {
+                        Vector3 touchPos = new Vector3(Input.GetTouch(0).position.x, 0f, Input.GetTouch(0).position.y);
+                        if ((touchPos - inputStartPos).magnitude >= 70)
+                        {
+                            direction = touchPos - inputStartPos;
 
-                    // Can update prediction
-                    if (timerBeforeUpdatePrediction <= 0f)
-                    {
-                        movementPrediction.CalculateTrajectory(gameManager.GetDiscPosition(), direction, 0f, 0);
-                        timerBeforeUpdatePrediction = delayBeforeUpdatePrediction;
+                            // Can update prediction
+                            if (timerBeforeUpdatePrediction <= 0f)
+                            {
+                                movementPrediction.CalculateTrajectory(gameManager.GetDiscPosition(), direction, 0f, 0);
+                                timerBeforeUpdatePrediction = delayBeforeUpdatePrediction;
+                            }
+                            else
+                            {
+                                timerBeforeUpdatePrediction -= Time.deltaTime;
+                            }
+                            direction = direction.normalized;
+                        }
+                        else
+                        {
+                            movementPrediction.HidePrediction();
+                        }
                     }
-                    else
-                    {
-                        timerBeforeUpdatePrediction -= Time.deltaTime;
-                    }
-                    direction = direction.normalized;
                 }
 
                 // Launch Disc
@@ -62,14 +71,21 @@ public class SC_PlayerInput : MonoBehaviour
                 {
                     if (canUpdate)
                     {
-                        if ((Input.mousePosition - inputStartPos).magnitude >= 70)
+                        Vector3 touchPos = new Vector3(Input.GetTouch(0).position.x, 0f, Input.GetTouch(0).position.y);
+
+                        if ((touchPos - inputStartPos).magnitude >= 70)
                         {
                             movementPrediction.HidePrediction();
                             gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
                         }
+                        else
+                        {
+                            movementPrediction.HidePrediction();
+                        }
                     }
                 }
             }
+
 #endif
 
 #if UNITY_EDITOR
@@ -97,6 +113,10 @@ public class SC_PlayerInput : MonoBehaviour
                         movementPrediction.HidePrediction();
                         gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
                     }
+                    else
+                    {
+                        movementPrediction.HidePrediction();
+                    }
                 }
             }
 
@@ -107,17 +127,24 @@ public class SC_PlayerInput : MonoBehaviour
                 direction.z = direction.y;
                 direction.y = 0f;
 
-                // Can update prediction
-                if (timerBeforeUpdatePrediction <= 0f)
+                if ((Input.mousePosition - inputStartPos).magnitude >= 70)
                 {
-                    movementPrediction.CalculateTrajectory(gameManager.GetDiscPosition(), direction, 0f, 0);
-                    timerBeforeUpdatePrediction = delayBeforeUpdatePrediction;
+                    // Can update prediction
+                    if (timerBeforeUpdatePrediction <= 0f)
+                    {
+                        movementPrediction.CalculateTrajectory(gameManager.GetDiscPosition(), direction, 0f, 0);
+                        timerBeforeUpdatePrediction = delayBeforeUpdatePrediction;
+                    }
+                    else
+                    {
+                        timerBeforeUpdatePrediction -= Time.deltaTime;
+                    }
+                    direction = direction.normalized;
                 }
                 else
                 {
-                    timerBeforeUpdatePrediction -= Time.deltaTime;
+                    movementPrediction.HidePrediction();
                 }
-                direction = direction.normalized;
             }
 #endif
         }

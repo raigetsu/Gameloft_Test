@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class SC_GameManager : MonoBehaviour
@@ -14,6 +12,7 @@ public class SC_GameManager : MonoBehaviour
     [SerializeField] private SC_DiscButton discLastPressedButton = null;
 
     private Vector3 defaultPos = Vector3.zero;
+    SC_PlayerDataManager playerDataManager = null;
 
     public SC_DiscMaster CurrentDisc { get => currentDisc; }
     public int DiscCount { get => discCount; }
@@ -32,12 +31,14 @@ public class SC_GameManager : MonoBehaviour
     private void Start()
     {
         defaultPos = currentDisc.transform.position;
-        currentDisc.OnMovementStop.AddListener(OnDiscStop);     
+        currentDisc.OnMovementStop.AddListener(OnDiscStop);
 
         if (chest != null)
             chest.OnChestDestroy.AddListener(Victory);
 
-        SC_LevelGeneration.LoadLevel("Save");
+        playerDataManager = FindObjectOfType<SC_PlayerDataManager>();
+
+        SC_LevelGeneration.LoadLevel(SC_Rank.GetLevelName(playerDataManager.CurrentRank, playerDataManager.RankLevel, playerDataManager.RowCount));
     }
 
     public void LaunchDisc(Vector3 pDirection, float pForce = 1f)
@@ -82,7 +83,8 @@ public class SC_GameManager : MonoBehaviour
             if (discCount <= 0)
             {
                 gameState = GameState.Lose;
-                gameHUD.DisplayEndGamePanel(false);
+                playerDataManager.Lose();
+                gameHUD.DisplayEndGamePanel(false, playerDataManager);
             }
             else
             {
@@ -94,11 +96,13 @@ public class SC_GameManager : MonoBehaviour
     private void Victory()
     {
         gameState = GameState.Victory;
-        gameHUD.DisplayEndGamePanel(true);
+        playerDataManager.Victory();
+        gameHUD.DisplayEndGamePanel(true, playerDataManager);
     }
 
     public void GoBackToMenu()
     {
+        Destroy(playerDataManager.gameObject);
         SceneManager.LoadScene(0);
     }
 
