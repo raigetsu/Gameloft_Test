@@ -851,6 +851,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6f6fd08814a834eaae890fb55592f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  discDatas:
+  - {fileID: 11400000, guid: 15e6aa3ad6cfe7b4cbe5d8eb42c2d695, type: 2}
+  defaultDiscData: {fileID: 11400000, guid: 0838de7a1ea447e45ad43cf07aaf842d, type: 2}
   OnRankUp:
     m_PersistentCalls:
       m_Calls: []

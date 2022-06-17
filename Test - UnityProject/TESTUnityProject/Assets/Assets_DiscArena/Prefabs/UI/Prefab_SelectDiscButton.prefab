@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 5427928354548044424}
   - component: {fileID: 2455295078914645772}
   - component: {fileID: 817563425}
+  - component: {fileID: 4536546890263197105}
   m_Layer: 5
   m_Name: Prefab_SelectDiscButton
   m_TagString: Untagged
@@ -197,18 +198,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SC_GameManager, Assembly-CSharp
-        m_MethodName: ChangeDiscWithButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 817563425}
-          m_ObjectArgumentAssemblyTypeName: SC_DiscButton, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 817563425}
         m_TargetAssemblyTypeName: SC_DiscButton, Assembly-CSharp
         m_MethodName: OnPressed
@@ -233,6 +222,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e5b87e17f11bb4685dcbaa7f9f84d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usableCount: -1
   button: {fileID: 2455295078914645772}
-  discPrefab: {fileID: 930116979807966473, guid: 46a564fdc2d990d4894584a80be70de1, type: 3}
+  discIcon: {fileID: 5436172836971306090}
+  scaleAnimation: {fileID: 4536546890263197105}
+--- !u!114 &4536546890263197105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796185895633414902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2be308aa0c3b24792f0b50d1b98365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToScale: {fileID: 1796185895633414902}
+  scaleAnimationFactor: 1.1
+  scaleAnimationSpeed: 0.5
+  OnScaleAnimationOver:
+    m_PersistentCalls:
+      m_Calls: []

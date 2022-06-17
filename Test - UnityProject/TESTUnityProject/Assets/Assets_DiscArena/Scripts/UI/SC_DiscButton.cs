@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class SC_DiscButton : MonoBehaviour
 {
-    [SerializeField,Tooltip("Set -1 for unlimited use")] private int usableCount = -1;
+    
     [SerializeField] private Button button = null;
-    [SerializeField] private GameObject discPrefab = null;
+    [SerializeField] private Image discIcon = null;
+    [SerializeField] private SC_ScaleAnimation scaleAnimation = null;
 
-    public GameObject DiscPrefab { get => discPrefab; }
+    public SCO_DiscData data { get; private set; } = null;
+    public Button DiscButton { get => button; }
 
     private int currentUsedCount = 0;
 
@@ -25,9 +27,20 @@ public class SC_DiscButton : MonoBehaviour
 
     public void TryEnableButton()
     {
-        if (usableCount != -1)
-            button.interactable = currentUsedCount >= usableCount;
+        if (data.UsableCount != -1)
+            button.interactable = currentUsedCount >= data.UsableCount;
         else
             button.interactable = true;
+    }
+
+    public void InitButton(SCO_DiscData pDisc)
+    {
+        data = pDisc;
+        discIcon.sprite = pDisc.IconTexture;
+    }
+
+    public void PlayScaleAnimation()
+    {
+        scaleAnimation.StartPlayAnimation();
     }
 }

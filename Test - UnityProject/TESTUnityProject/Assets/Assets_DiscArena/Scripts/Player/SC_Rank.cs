@@ -66,7 +66,7 @@ public class SC_Rank : MonoBehaviour
         return rowToWin[pRank][pRankLevel];
     }
 
-    static public string GetLevelName(ERank pRank,int pRankLevel,int pRow)
+    static public string GetLevelName(ERank pRank, int pRankLevel, int pRow)
     {
         return "Level_" + GetRankString(pRank) + "_" + pRankLevel + "_" + pRow;
     }
