@@ -9,15 +9,16 @@ public class SC_BuildingChest : SC_BuildingMaster
     [Header("CHEST")]
     [SerializeField] private Animation chestOpeningAnimation = null;
     [SerializeField] private CinemachineVirtualCamera chestCam = null;
+    [SerializeField] private ParticleSystem starParticle = null;
     [SerializeField] public UnityEvent OnChestAnimationOver = new UnityEvent();
 
     private bool isPlayingOpeningAnimation = false;
 
     private void Update()
     {
-        if(isPlayingOpeningAnimation)
+        if (isPlayingOpeningAnimation)
         {
-            if(chestOpeningAnimation.isPlaying == false)
+            if (chestOpeningAnimation.isPlaying == false)
             {
                 isPlayingOpeningAnimation = false;
                 OnChestAnimationOver?.Invoke();
@@ -32,5 +33,10 @@ public class SC_BuildingChest : SC_BuildingMaster
         chestOpeningAnimation.Play();
         isPlayingOpeningAnimation = true;
         chestCam.Priority = 30;
+    }
+
+    public void PlayStarFx()
+    {
+        starParticle.Play();
     }
 }
