@@ -12,21 +12,33 @@ public class SC_PlayerInput : MonoBehaviour
 
     float timerBeforeUpdatePrediction = 0f;
 
+    // Variable set when press start
+    // if press is over UI element => canUpdate = false else canUpdate = true
+    private bool canUpdate = false;
+
     // Update is called once per frame
     void Update()
     {
         if (gameManager.gameState == SC_GameManager.GameState.WaitToLaunchDisc)
         {
-#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_IOS) //&& !UNITY_EDITOR
             if (Input.touchCount > 0)
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    inputStartPos = Input.GetTouch(0).position;
-                    timerBeforeUpdatePrediction = 0f;
+                    if(gameManager.IsPointerOverUIElement() == false)
+                    {
+                        canUpdate = true;
+                        inputStartPos = Input.GetTouch(0).position;
+                        timerBeforeUpdatePrediction = 0f;
+                    }
+                    else
+                    {
+                        canUpdate = false;
+                    }                    
                 }
                 // Update prediction
-                else if (Input.GetTouch(0).phase == TouchPhase.Moved)
+                else if (canUpdate && Input.GetTouch(0).phase == TouchPhase.Moved)
                 {
                     direction = (Input.mousePosition - inputStartPos);
                     direction.z = direction.y;
@@ -44,11 +56,18 @@ public class SC_PlayerInput : MonoBehaviour
                     }
                     direction = direction.normalized;
                 }
+
                 // Launch Disc
                 else if (Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
-                    movementPrediction.HidePrediction();
-                    gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
+                    if (canUpdate)
+                    {
+                        if (direction.magnitude > 1f)
+                        {
+                            movementPrediction.HidePrediction();
+                            gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
+                        }
+                    }
                 }
             }
 #endif
@@ -56,19 +75,33 @@ public class SC_PlayerInput : MonoBehaviour
 #if UNITY_EDITOR
             if (Input.GetMouseButtonDown(0))
             {
-                inputStartPos = Input.mousePosition;
-                timerBeforeUpdatePrediction = 0f;
+                if (gameManager.IsPointerOverUIElement() == false)
+                {
+                    inputStartPos = Input.mousePosition;
+                    timerBeforeUpdatePrediction = 0f;
+                    canUpdate = true;
+                }
+                else
+                {
+                    canUpdate = false;
+                }
             }
 
             // Launch Disc
             else if (Input.GetMouseButtonUp(0))
             {
-                movementPrediction.HidePrediction();
-                gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
+                if (canUpdate)
+                {
+                    if ((Input.mousePosition - inputStartPos).magnitude >= 70)
+                    {
+                        movementPrediction.HidePrediction();
+                        gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
+                    }
+                }
             }
 
             // Update Prediction
-            if (Input.GetMouseButton(0))
+            if (canUpdate && Input.GetMouseButton(0))
             {
                 direction = (Input.mousePosition - inputStartPos);
                 direction.z = direction.y;

@@ -218,3 +218,19 @@ MonoBehaviour:
   textDamagePrefab: {fileID: 3458874354882961216, guid: 32e1d18a77e3d044c97a9ca8e091ff37, type: 3}
   damageTextSpawnPositionOffset: {x: 0, y: 1, z: 0}
   healthBar: {fileID: 1820430628843640684}
+  scaleAnimation: {fileID: 7857970605071792417}
+--- !u!114 &7857970605071792417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8808396492717430388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2be308aa0c3b24792f0b50d1b98365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToScale: {fileID: 8808396492717430388}
+  scaleAnimationFactor: 1.2
+  scaleAnimationSpeed: 2
