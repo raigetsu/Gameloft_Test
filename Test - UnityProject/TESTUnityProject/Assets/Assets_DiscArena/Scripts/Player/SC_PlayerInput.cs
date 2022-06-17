@@ -17,7 +17,7 @@ public class SC_PlayerInput : MonoBehaviour
     {
         if (gameManager.gameState == SC_GameManager.GameState.WaitToLaunchDisc)
         {
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
             if (Input.touchCount > 0)
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began)

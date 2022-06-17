@@ -10,6 +10,7 @@ public class SC_BuildingMaster : MonoBehaviour
     public bool TakeDamage(int damage)
     {
         health -= damage;
+        print(health);
         if (health <= 0)
         {
             BuildingDestroy();
@@ -18,8 +19,9 @@ public class SC_BuildingMaster : MonoBehaviour
         return false;
     }
 
-    public void BuildingDestroy()
+    public virtual void BuildingDestroy()
     {
-        Destroy(gameObject);
+        gameObject.GetComponent<MeshCollider>().enabled = false;
+        Destroy(gameObject,0.1f);
     }
 }

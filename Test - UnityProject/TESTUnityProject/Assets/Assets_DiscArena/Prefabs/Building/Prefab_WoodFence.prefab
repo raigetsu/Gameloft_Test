@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6673903518032758205}
   m_Layer: 0
   m_Name: Prefab_WoodFence
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
   m_PrefabInstance: {fileID: 5439571554135150585}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3157340966388300649
+--- !u!114 &8844367332052315379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

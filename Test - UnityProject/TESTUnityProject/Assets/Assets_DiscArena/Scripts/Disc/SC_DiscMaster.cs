@@ -6,6 +6,7 @@ public class SC_DiscMaster : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb = null;
     [SerializeField] private LayerMask GroundLayer = 0;
+    [SerializeField] private float timeToWaitWhenDestroyBuilding = 0.035f;
 
     [Header("Data")]
     [SerializeField] private int attack = 0;
@@ -21,10 +22,12 @@ public class SC_DiscMaster : MonoBehaviour
 
     private bool IsInMovement = false;
 
+    private Vector3 savedVelocity = Vector3.zero;
+
 
     private void Start()
     {
-        OnMovementStop.AddListener(() => 
+        OnMovementStop.AddListener(() =>
         {
             rb.velocity = Vector3.zero;
             IsInMovement = false;
@@ -38,8 +41,8 @@ public class SC_DiscMaster : MonoBehaviour
             if (rb.velocity.magnitude <= 0.1f)
             {
                 OnMovementStop?.Invoke();
-             
             }
+            savedVelocity = rb.velocity;
         }
     }
 
@@ -53,14 +56,33 @@ public class SC_DiscMaster : MonoBehaviour
         pDirection.z *= pForce;
 
         rb.velocity = pDirection;
+        savedVelocity = rb.velocity;
         IsInMovement = true;
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(((1 << collision.gameObject.layer) & GroundLayer.value) != 0)
+        if (((1 << collision.gameObject.layer) & GroundLayer.value) == 0)
         {
             OnHit?.Invoke();
+
+            if (collision.gameObject.CompareTag("Building") && IsInMovement)
+            {
+                SC_Vibrator.Vibrate(75);
+                if (collision.gameObject.GetComponent<SC_BuildingMaster>().TakeDamage(attack))
+                {
+                    IsInMovement = false;
+                    rb.velocity = Vector3.zero;
+                    StartCoroutine(DestroyBuldingWait());
+                }
+            }
         }
+    }
+
+    private IEnumerator DestroyBuldingWait()
+    {
+        yield return new WaitForSeconds(timeToWaitWhenDestroyBuilding);
+        rb.velocity = savedVelocity;
+        IsInMovement = true;
     }
 }
