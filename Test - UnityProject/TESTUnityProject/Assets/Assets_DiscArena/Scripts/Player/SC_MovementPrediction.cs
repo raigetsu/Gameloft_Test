@@ -120,6 +120,15 @@ public class SC_MovementPrediction : MonoBehaviour
         return new Vector3(Mathf.Abs(vector.x), Mathf.Abs(vector.y), Mathf.Abs(vector.z));
     }
 
+    // SetActive(false) for all prediction point
+    public void HidePrediction()
+    {
+        foreach (var item in pointList)
+        {
+            item.SetActive(false);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         CalculateTrajectory(debugObjectForGizmo.transform.position, debugGizmoDefaultDir, 0f, 0);

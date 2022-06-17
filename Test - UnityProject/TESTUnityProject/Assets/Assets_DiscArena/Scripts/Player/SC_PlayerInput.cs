@@ -17,18 +17,22 @@ public class SC_PlayerInput : MonoBehaviour
     {
         if (gameManager.gameState == SC_GameManager.GameState.WaitToLaunchDisc)
         {
-#if UNITY_ANDROID || UNITY_IOS
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
             if (Input.touchCount > 0)
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
                     inputStartPos = Input.GetTouch(0).position;
+                    timerBeforeUpdatePrediction = 0f;
                 }
+                // Update prediction
                 else if (Input.GetTouch(0).phase == TouchPhase.Moved)
                 {
                     direction = (Input.mousePosition - inputStartPos);
                     direction.z = direction.y;
                     direction.y = 0f;
+
+                    // Can update prediction
                     if (timerBeforeUpdatePrediction <= 0f)
                     {
                         movementPrediction.CalculateTrajectory(gameManager.GetDiscPosition(), direction, 0f, 0);
@@ -40,9 +44,10 @@ public class SC_PlayerInput : MonoBehaviour
                     }
                     direction = direction.normalized;
                 }
+                // Launch Disc
                 else if (Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
-
+                    movementPrediction.HidePrediction();
                     gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
                 }
             }
@@ -52,21 +57,24 @@ public class SC_PlayerInput : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 inputStartPos = Input.mousePosition;
-                direction = (Input.mousePosition - gameManager.GetDiscPosition()).normalized;
-                direction.z = direction.y;
-                direction.y = 0f;
                 timerBeforeUpdatePrediction = 0f;
             }
+
+            // Launch Disc
             else if (Input.GetMouseButtonUp(0))
             {
+                movementPrediction.HidePrediction();
                 gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
             }
 
+            // Update Prediction
             if (Input.GetMouseButton(0))
             {
                 direction = (Input.mousePosition - inputStartPos);
                 direction.z = direction.y;
                 direction.y = 0f;
+
+                // Can update prediction
                 if (timerBeforeUpdatePrediction <= 0f)
                 {
                     movementPrediction.CalculateTrajectory(gameManager.GetDiscPosition(), direction, 0f, 0);
