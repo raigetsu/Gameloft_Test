@@ -34,7 +34,7 @@ public class SC_GameManager : MonoBehaviour
         currentDisc.OnMovementStop.AddListener(OnDiscStop);
 
         if (chest != null)
-            chest.OnChestDestroy.AddListener(Victory);
+            chest.OnChestAnimationOver.AddListener(Victory);
 
         playerDataManager = FindObjectOfType<SC_PlayerDataManager>();
 
@@ -127,7 +127,7 @@ public class SC_GameManager : MonoBehaviour
     {
         discCount = data.levelDiscCount;
         chest = FindObjectOfType<SC_BuildingChest>();
-        chest.OnChestDestroy.AddListener(Victory);
+        chest.OnChestAnimationOver.AddListener(Victory);
         gameHUD.UpdateDiscCount(discCount);
         discLastPressedButton.OnPressed();
         gameHUD.UpdateCreatorName(data.creatorName);
