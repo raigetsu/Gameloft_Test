@@ -21,7 +21,7 @@ public class SC_PlayerInput : MonoBehaviour
     {
         if (gameManager.gameState == SC_GameManager.GameState.WaitToLaunchDisc)
         {
-#if (UNITY_ANDROID || UNITY_IOS) //&& !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
             if (Input.touchCount > 0)
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
@@ -62,7 +62,7 @@ public class SC_PlayerInput : MonoBehaviour
                 {
                     if (canUpdate)
                     {
-                        if (direction.magnitude > 1f)
+                        if ((Input.mousePosition - inputStartPos).magnitude >= 70)
                         {
                             movementPrediction.HidePrediction();
                             gameManager.LaunchDisc(direction, gameManager.CurrentDisc.MoveSpeed);
@@ -120,6 +120,10 @@ public class SC_PlayerInput : MonoBehaviour
                 direction = direction.normalized;
             }
 #endif
+        }
+        else
+        {
+            canUpdate = false;
         }
     }
 }

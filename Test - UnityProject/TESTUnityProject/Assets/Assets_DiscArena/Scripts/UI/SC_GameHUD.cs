@@ -8,6 +8,7 @@ public class SC_GameHUD : MonoBehaviour
 {
     [Header("HUD")]
     [SerializeField] private GameObject hudPanel = null;
+    [SerializeField] private Text levelCreateNameText = null;
 
     [Header("DISC")]
     [SerializeField] private Text remainingDiscText = null;
@@ -70,5 +71,10 @@ public class SC_GameHUD : MonoBehaviour
         gameEndText.text = pVictory ? "VICTORY" : "DEFEAT";
         gameEndPanel.SetActive(true);
         hudPanel.SetActive(false);
+    }
+
+    public void UpdateCreatorName(string pName)
+    {
+        levelCreateNameText.text = pName;
     }
 }

@@ -11,11 +11,12 @@ public class SC_GameManager : MonoBehaviour
     [SerializeField] private int discCount = 5;
     [SerializeField] private SC_GameHUD gameHUD = null;
     [SerializeField] private SC_BuildingChest chest = null;
-   [SerializeField] private SC_DiscButton discLastPressedButton = null;
+    [SerializeField] private SC_DiscButton discLastPressedButton = null;
 
     private Vector3 defaultPos = Vector3.zero;
 
     public SC_DiscMaster CurrentDisc { get => currentDisc; }
+    public int DiscCount { get => discCount; }
 
     public enum GameState
     {
@@ -31,10 +32,12 @@ public class SC_GameManager : MonoBehaviour
     private void Start()
     {
         defaultPos = currentDisc.transform.position;
-        currentDisc.OnMovementStop.AddListener(OnDiscStop);
-        gameHUD.UpdateDiscCount(discCount);
-        chest.OnChestDestroy.AddListener(Victory);
-        discLastPressedButton.OnPressed();
+        currentDisc.OnMovementStop.AddListener(OnDiscStop);     
+
+        if (chest != null)
+            chest.OnChestDestroy.AddListener(Victory);
+
+        SC_LevelGeneration.LoadLevel("Save");
     }
 
     public void LaunchDisc(Vector3 pDirection, float pForce = 1f)
@@ -68,6 +71,8 @@ public class SC_GameManager : MonoBehaviour
 
         ChangeDisc(pDiscButton.DiscPrefab);
         discLastPressedButton = pDiscButton;
+
+        gameState = GameState.WaitToLaunchDisc;
     }
 
     private void OnDiscStop()
@@ -81,7 +86,7 @@ public class SC_GameManager : MonoBehaviour
             }
             else
             {
-                gameState = GameState.WaitToLaunchDisc;
+                gameState = GameState.WaitToChooseDisc;
             }
         }
     }
@@ -112,5 +117,15 @@ public class SC_GameManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void LoadLevel(SC_LevelGeneration.LevelData data)
+    {
+        discCount = data.levelDiscCount;
+        chest = FindObjectOfType<SC_BuildingChest>();
+        chest.OnChestDestroy.AddListener(Victory);
+        gameHUD.UpdateDiscCount(discCount);
+        discLastPressedButton.OnPressed();
+        gameHUD.UpdateCreatorName(data.creatorName);
     }
 }

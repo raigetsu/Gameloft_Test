@@ -99,6 +99,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c6326c68efa0fe849a796fba189ccc11, type: 3}
   m_PrefabInstance: {fileID: 5439571554135150585}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3719963392235546735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5169099191037113000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2be308aa0c3b24792f0b50d1b98365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToScale: {fileID: 5169099191037113000}
+  scaleAnimationFactor: 1.2
+  scaleAnimationSpeed: 2
+  OnScaleAnimationOver:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8844367332052315379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,21 +134,7 @@ MonoBehaviour:
   damageTextSpawnPositionOffset: {x: 0, y: 1, z: 0}
   healthBar: {fileID: 2935939785979079864}
   scaleAnimation: {fileID: 3719963392235546735}
---- !u!114 &3719963392235546735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5169099191037113000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d2be308aa0c3b24792f0b50d1b98365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToScale: {fileID: 5169099191037113000}
-  scaleAnimationFactor: 1.2
-  scaleAnimationSpeed: 2
+  key: WoodFence
 --- !u!1001 &6965939056870782733
 PrefabInstance:
   m_ObjectHideFlags: 0

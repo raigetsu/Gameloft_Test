@@ -202,6 +202,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1538786733383807912, guid: c85edc31bb0bf514c9a737abc0bc90fc, type: 3}
+--- !u!114 &7857970605071792417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8808396492717430388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2be308aa0c3b24792f0b50d1b98365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToScale: {fileID: 8808396492717430388}
+  scaleAnimationFactor: 1.2
+  scaleAnimationSpeed: 2
+  OnScaleAnimationOver:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7913919306245137861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,18 +237,7 @@ MonoBehaviour:
   damageTextSpawnPositionOffset: {x: 0, y: 1, z: 0}
   healthBar: {fileID: 1820430628843640684}
   scaleAnimation: {fileID: 7857970605071792417}
---- !u!114 &7857970605071792417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8808396492717430388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d2be308aa0c3b24792f0b50d1b98365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToScale: {fileID: 8808396492717430388}
-  scaleAnimationFactor: 1.2
-  scaleAnimationSpeed: 2
+  key: Chest
+  OnChestDestroy:
+    m_PersistentCalls:
+      m_Calls: []

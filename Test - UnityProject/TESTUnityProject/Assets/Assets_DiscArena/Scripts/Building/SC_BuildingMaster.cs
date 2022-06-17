@@ -5,13 +5,28 @@ using TMPro;
 
 public class SC_BuildingMaster : MonoBehaviour
 {
+    [System.Serializable]
+    public class BuildingSave
+    {
+        public string key = null;
+        public Vector3 position;
+        public Quaternion rotation;
+        public Vector3 scale;
+        public int health = 0;
+    }
+
     [SerializeField] private int health = 0;
     [SerializeField] private GameObject textDamagePrefab = null;
     [SerializeField] private Vector3 damageTextSpawnPositionOffset = new Vector3(0f, 1f, 0f);
     [SerializeField] private SC_HealthBar healthBar = null;
     [SerializeField] private SC_ScaleAnimation scaleAnimation = null;
 
-    public float currentHealth { get; private set; } = 0;
+    [Header("Save")]
+    [SerializeField] private string key = "BuildingMaster";
+
+    public string Key { get => key; }
+    public int currentHealth { get; private set; } = 0;
+    public int MaxHealth { get => health; }
 
     private void Start()
     {
@@ -60,4 +75,9 @@ public class SC_BuildingMaster : MonoBehaviour
         Destroy(gameObject.transform.parent.gameObject, 0.1f);
     }
 
+    public void LoadSave(BuildingSave save)
+    {
+        health = save.health;
+        currentHealth = health;
+    }
 }
