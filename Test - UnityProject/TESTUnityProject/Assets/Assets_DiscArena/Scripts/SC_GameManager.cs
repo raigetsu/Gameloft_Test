@@ -33,14 +33,16 @@ public class SC_GameManager : MonoBehaviour
         defaultPos = currentDisc.transform.position;
         currentDisc.OnMovementStop.AddListener(OnDiscStop);
 
+        // Bind victory
         if (chest != null)
             chest.OnChestAnimationOver.AddListener(Victory);
 
+        // Load level
         playerDataManager = FindObjectOfType<SC_PlayerDataManager>();
-
         SC_LevelGeneration.LoadLevel(SC_Rank.GetLevelName(playerDataManager.CurrentRank, playerDataManager.RankLevel, playerDataManager.RowCount));
     }
 
+    #region DISC
     public void LaunchDisc(Vector3 pDirection, float pForce = 1f)
     {
         currentDisc.LaunchDisc(pDirection, pForce);
@@ -55,26 +57,33 @@ public class SC_GameManager : MonoBehaviour
         return currentDisc.gameObject.transform.position;
     }
 
+    #region DISC CHANGEMENT
     public void ChangeDisc(GameObject pNewDiscPrefab)
     {
         Destroy(currentDisc.transform.parent.gameObject);
+
         GameObject go = Instantiate(pNewDiscPrefab);
+
         currentDisc = go.GetComponentInChildren<SC_DiscMaster>();
         go.transform.position = defaultPos;
+
         currentDisc.OnMovementStop.AddListener(OnDiscStop);
         gameState = GameState.WaitToLaunchDisc;
     }
 
+    // Call Change Disc
+    // Update button state if necessary
     public void ChangeDiscWithButton(SC_DiscButton pDiscButton)
     {
-        if (discLastPressedButton != null)
+        if (discLastPressedButton != null && discLastPressedButton != pDiscButton)
             discLastPressedButton.TryEnableButton();
 
-        ChangeDisc(pDiscButton.DiscPrefab);
+        ChangeDisc(pDiscButton.data.Prefab);
         discLastPressedButton = pDiscButton;
 
         gameState = GameState.WaitToLaunchDisc;
     }
+    #endregion
 
     private void OnDiscStop()
     {
@@ -89,9 +98,20 @@ public class SC_GameManager : MonoBehaviour
             else
             {
                 gameState = GameState.WaitToChooseDisc;
+                gameHUD.DiscStopped();
             }
         }
     }
+
+    public void NewDiscButtonCreated(SC_DiscButton pDiscButton)
+    {
+        pDiscButton.DiscButton.onClick.AddListener(() => { ChangeDiscWithButton(pDiscButton); });
+        if (discLastPressedButton == null)
+        {
+            discLastPressedButton = pDiscButton;
+        }
+    }
+    #endregion
 
     private void Victory()
     {
@@ -106,10 +126,18 @@ public class SC_GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    // Return if mouse/Touch(0) is over UI Element 
     public bool IsPointerOverUIElement()
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current);
+#if UNITY_EDITOR
         eventData.position = Input.mousePosition;
+#elif UNITY_ANDROID || UNITY_IOS
+        if (Input.touchCount > 0)
+            eventData.position = new Vector3(Input.GetTouch(0).position.x, 0f, Input.GetTouch(0).position.y);
+        else
+            return false;
+#endif
         List<RaycastResult> raysastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, raysastResults);
 
@@ -125,11 +153,19 @@ public class SC_GameManager : MonoBehaviour
 
     public void LoadLevel(SC_LevelGeneration.LevelData data)
     {
-        discCount = data.levelDiscCount;
+        // Bind Victory
         chest = FindObjectOfType<SC_BuildingChest>();
         chest.OnChestAnimationOver.AddListener(Victory);
+
+        // Setup disc max count
+        discCount = data.levelDiscCount;
         gameHUD.UpdateDiscCount(discCount);
+
+        // Generate disc button
+        gameHUD.InitDiscButton(playerDataManager.UnlockedDisc, this);
         discLastPressedButton.OnPressed();
+
+        // Setup level creator name
         gameHUD.UpdateCreatorName(data.creatorName);
     }
 }

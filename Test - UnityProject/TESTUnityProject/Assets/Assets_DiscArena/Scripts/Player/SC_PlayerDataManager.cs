@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class SC_PlayerDataManager : MonoBehaviour
 {
+    [SerializeField] private SCO_DiscData[] discDatas;
+    [SerializeField] private SCO_DiscData defaultDiscData = null;
     public UnityEvent<SC_Rank.ERank, int> OnRankUp = new UnityEvent<SC_Rank.ERank, int>();
 
     [System.Serializable]
@@ -14,11 +16,13 @@ public class SC_PlayerDataManager : MonoBehaviour
         public SC_Rank.ERank currentRank = SC_Rank.ERank.Bronze;
         public int rankLevel = 3;
         public int rowCount = 0;
+        public List<SCO_DiscData> unlockedDisc = new List<SCO_DiscData>();
     }
 
     SC_Rank.ERank currentRank = SC_Rank.ERank.Bronze;
     int rankLevel = 3;
     int rowCount = 0;
+    public List<SCO_DiscData> UnlockedDisc { get; private set; } = new List<SCO_DiscData>();
 
     public SC_Rank.ERank CurrentRank { get => currentRank; }
     public int RankLevel { get => rankLevel; }
@@ -39,8 +43,11 @@ public class SC_PlayerDataManager : MonoBehaviour
             currentRank = playerSave.currentRank;
             rankLevel = playerSave.rankLevel;
             rowCount = playerSave.rowCount;
-
-            print("Load");
+            UnlockedDisc = playerSave.unlockedDisc;
+        }
+        else
+        {
+            UnlockedDisc.Add(defaultDiscData);
         }
     }
 
@@ -50,6 +57,7 @@ public class SC_PlayerDataManager : MonoBehaviour
         save.rankLevel = rankLevel;
         save.currentRank = currentRank;
         save.rowCount = rowCount;
+        save.unlockedDisc = UnlockedDisc;
 
         string json = JsonUtility.ToJson(save);
 
@@ -78,6 +86,18 @@ public class SC_PlayerDataManager : MonoBehaviour
                 }
 
                 OnRankUp?.Invoke(currentRank, rankLevel);
+
+                // Check if we unlocked new disc
+                for (int i = 0; i < discDatas.Length; i++)
+                {
+                    if(discDatas[i].UnlockedRank == currentRank && discDatas[i].UnlockedRankLevel == rankLevel)
+                    {
+                        if(UnlockedDisc.Contains(discDatas[i]) == false)
+                        {
+                            UnlockedDisc.Add(discDatas[i]);
+                        }
+                    }
+                }
             }
         }
         print(rankLevel);

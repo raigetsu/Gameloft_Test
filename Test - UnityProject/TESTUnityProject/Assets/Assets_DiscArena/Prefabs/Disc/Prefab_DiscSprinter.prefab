@@ -152,8 +152,9 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
+  timeToWaitWhenDestroyBuilding: 0.035
   attack: 3
-  moveSpeed: 8
+  moveSpeed: 15
   OnMovementStop:
     m_PersistentCalls:
       m_Calls: []

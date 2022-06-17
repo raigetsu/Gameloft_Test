@@ -11,6 +11,10 @@ public class SC_GameHUD : MonoBehaviour
     [SerializeField] private Text levelCreateNameText = null;
 
     [Header("DISC")]
+    [SerializeField] private GameObject discButtonPrefab = null;
+    [SerializeField] private GameObject discButtonLayout = null;
+
+    [Header("DISC COUNT")]
     [SerializeField] private Text remainingDiscText = null;
     [SerializeField] private SC_ScaleAnimation remainingDiscScaleAnimation = null;
     [SerializeField] private Color DiscWarningColor = Color.red;
@@ -24,6 +28,7 @@ public class SC_GameHUD : MonoBehaviour
     // Disc Warning
     private float timeBeforePlayDiscWarning = 0f;
     private bool canPlayDiscWarning = false;
+    private List<SC_DiscButton> discButtonList = new List<SC_DiscButton>();
 
     private void Start()
     {
@@ -89,5 +94,31 @@ public class SC_GameHUD : MonoBehaviour
     public void UpdateCreatorName(string pName)
     {
         levelCreateNameText.text = pName;
+    }
+
+    public void InitDiscButton(List<SCO_DiscData> pUnlockedDisc, SC_GameManager pGameManager)
+    {
+        for (int i = 0; i < pUnlockedDisc.Count; i++)
+        {
+            GameObject go = Instantiate(discButtonPrefab, discButtonLayout.transform);
+
+            SC_DiscButton discButton = go.GetComponent<SC_DiscButton>();
+
+            // Init button
+            discButton.InitButton(pUnlockedDisc[i]);
+            pGameManager.NewDiscButtonCreated(discButton);
+
+            // Save button in list
+            discButtonList.Add(discButton);
+        }
+    }
+
+    public void DiscStopped()
+    {
+        for (int i = 0; i < discButtonList.Count; i++)
+        {
+            discButtonList[i].TryEnableButton();
+            discButtonList[i].PlayScaleAnimation();
+        }
     }
 }
