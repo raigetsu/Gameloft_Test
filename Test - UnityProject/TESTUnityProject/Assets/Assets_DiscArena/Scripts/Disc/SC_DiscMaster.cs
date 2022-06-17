@@ -7,6 +7,7 @@ public class SC_DiscMaster : MonoBehaviour
     [SerializeField] private Rigidbody rb = null;
     [SerializeField] private LayerMask GroundLayer = 0;
     [SerializeField] private float timeToWaitWhenDestroyBuilding = 0.035f;
+    [SerializeField] private Collider physicMatCollider = null;
 
     [Header("Data")]
     [SerializeField] private int attack = 0;
@@ -19,11 +20,12 @@ public class SC_DiscMaster : MonoBehaviour
 
     public int Attack { get => attack; }
     public float MoveSpeed { get => moveSpeed; }
+    public Rigidbody Rb { get => rb; }
+    public Collider PhysicMatCollider { get => physicMatCollider; }
 
     private bool IsInMovement = false;
 
     private Vector3 savedVelocity = Vector3.zero;
-
 
     private void Start()
     {

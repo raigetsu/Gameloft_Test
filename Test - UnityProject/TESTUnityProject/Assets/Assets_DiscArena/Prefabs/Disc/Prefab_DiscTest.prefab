@@ -149,6 +149,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   timeToWaitWhenDestroyBuilding: 0.035
+  physicMatCollider: {fileID: 9094660066616837089}
   attack: 2
   moveSpeed: 10
   OnMovementStop:
