@@ -13,8 +13,8 @@ public class SC_DiscMaster : MonoBehaviour
     [SerializeField] private float moveSpeed = 0f;
 
     [Header("EVENT")]
-    [SerializeField] private UnityEvent OnMovementStop = new UnityEvent();
-    [SerializeField] private UnityEvent OnHit = new UnityEvent();
+    [SerializeField] public UnityEvent OnMovementStop = new UnityEvent();
+    [SerializeField] public UnityEvent OnHit = new UnityEvent();
 
 
     public int Attack { get => attack; }
