@@ -19,6 +19,7 @@ public class SC_GameHUD : MonoBehaviour
     [Header("GAME END")]
     [SerializeField] private TextMeshProUGUI gameEndText = null;
     [SerializeField] private GameObject gameEndPanel = null;
+    [SerializeField] private Text rankText = null;
 
     // Disc Warning
     private float timeBeforePlayDiscWarning = 0f;
@@ -66,11 +67,23 @@ public class SC_GameHUD : MonoBehaviour
         }
     }
 
-    public void DisplayEndGamePanel(bool pVictory)
+    public void DisplayEndGamePanel(bool pVictory, SC_PlayerDataManager pPlayerData)
     {
         gameEndText.text = pVictory ? "VICTORY" : "DEFEAT";
         gameEndPanel.SetActive(true);
         hudPanel.SetActive(false);
+
+        if (pVictory)
+        {
+            if (pPlayerData.RowCount != 0)
+                rankText.text = "STILL <color=orange>" + (SC_Rank.RowToRankUp(pPlayerData.CurrentRank, pPlayerData.RankLevel) - pPlayerData.RowCount) + "</color> GAMES IN A ROW\nTO RANK UP";
+            else
+                rankText.text = "PROMOTED TO <color=orange>NEW LEAGUE!</color>";
+        }
+        else
+        {
+            rankText.text = "RESET STREAK";
+        }
     }
 
     public void UpdateCreatorName(string pName)
