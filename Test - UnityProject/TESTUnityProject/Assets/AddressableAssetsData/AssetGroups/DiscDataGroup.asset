@@ -27,6 +27,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Disc
+  - m_GUID: 38e3bb0a27ea181469e68a02ed27ae2b
+    m_Address: BomberDiscData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Disc
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1ad8aaae46b701b4393c3e3d143bb01c, type: 2}
   m_SchemaSet:

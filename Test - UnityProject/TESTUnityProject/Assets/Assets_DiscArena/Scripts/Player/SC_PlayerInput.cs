@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SC_PlayerInput : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class SC_PlayerInput : MonoBehaviour
     Vector3 direction = Vector3.zero;
 
     float timerBeforeUpdatePrediction = 0f;
+
+    // Event call only when the disc is already launch
+    public UnityEvent OnInputTouch = new UnityEvent();
 
     // Variable set when press start
     // if press is over UI element => canUpdate = false else canUpdate = true
@@ -155,6 +159,24 @@ public class SC_PlayerInput : MonoBehaviour
         else
         {
             canUpdate = false;
+        }
+
+        if(gameManager.gameState == SC_GameManager.GameState.DiscIsMoving)
+        {
+#if (UNITY_ANDROID ||UNITY_IOS) && !UNITY_EDITOR
+            if(Input.touchCount > 0)
+            {
+                if(Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+                    OnInputTouch?.Invoke();
+                }
+            }
+#elif UNITY_EDITOR
+            if(Input.GetMouseButtonDown(0))
+            {
+                OnInputTouch?.Invoke();
+            }
+#endif
         }
     }
 }
