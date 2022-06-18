@@ -22,6 +22,9 @@ public class SC_BuildingMaster : MonoBehaviour
     [SerializeField] private Vector3 damageTextSpawnPositionOffset = new Vector3(0f, 1f, 0f);
     [SerializeField] protected SC_HealthBar healthBar = null;
     [SerializeField] private SC_ScaleAnimation scaleAnimation = null;
+    [Header("PARTICLE SYSTEM")]
+    [SerializeField] private ParticleSystem fireParticle = null;
+    [SerializeField] private GameObject smokeParticle = null;
 
     [Header("Save")]
     [SerializeField] private string key = "BuildingMaster";
@@ -57,7 +60,7 @@ public class SC_BuildingMaster : MonoBehaviour
         // Update Health bar
         if (healthBar != null)
         {
-            healthBar.UpdateHealth(currentHealth / health);
+            healthBar.UpdateHealth((float)currentHealth / (float)health);
         }
 
         if (currentHealth <= 0)
@@ -68,6 +71,14 @@ public class SC_BuildingMaster : MonoBehaviour
         else
         {
             scaleAnimation.StartPlayAnimation();
+
+            if (fireParticle != null)
+            {
+                if (fireParticle.isPlaying == false)
+                {
+                    fireParticle.Play();
+                }
+            }
         }
 
         return false;
@@ -75,7 +86,9 @@ public class SC_BuildingMaster : MonoBehaviour
 
     public virtual void BuildingDestroy()
     {
-        gameObject.GetComponent<MeshCollider>().enabled = false;
+        gameObject.GetComponent<Collider>().enabled = false;
+        GameObject go = Instantiate(smokeParticle);
+        go.transform.position = transform.position;
         Destroy(gameObject.transform.parent.gameObject, 0.1f);
     }
 
@@ -90,7 +103,7 @@ public class SC_BuildingMaster : MonoBehaviour
             moveObject.LoadSave(save.moveObjectSave);
         }
 
-        if(save.rotateObjectSave.useRotateObject == true)
+        if (save.rotateObjectSave.useRotateObject == true)
         {
             rotateObject = gameObject.transform.parent.gameObject.AddComponent<SC_RotateObject>();
             rotateObject.LoadSave(save.rotateObjectSave);

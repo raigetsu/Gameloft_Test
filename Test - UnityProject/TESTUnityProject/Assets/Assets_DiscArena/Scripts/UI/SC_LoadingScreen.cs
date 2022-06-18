@@ -23,9 +23,9 @@ public class SC_LoadingScreen : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             Instance = this;
         }
-        else
+        else if(gameObject != Instance.gameObject)
         {
-            Destroy(loadingScreenCanvas);
+            Destroy(gameObject);
         }
     }
 

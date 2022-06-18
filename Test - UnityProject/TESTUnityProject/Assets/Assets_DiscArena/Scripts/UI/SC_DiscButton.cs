@@ -25,14 +25,18 @@ public class SC_DiscButton : MonoBehaviour
         button.interactable = false;
     }
 
-    public void TryEnableButton()
+    public bool TryEnableButton()
     {
         if (data.UsableCount != -1)
         {
             button.interactable = currentUsedCount < data.UsableCount;
         }
         else
+        {
             button.interactable = true;
+        }
+
+        return button.interactable;
     }
 
     public void InitButton(SCO_DiscData pDisc)
