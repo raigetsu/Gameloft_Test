@@ -18,7 +18,7 @@ public class SC_BuildingMaster : MonoBehaviour
     [SerializeField] private int health = 0;
     [SerializeField] private GameObject textDamagePrefab = null;
     [SerializeField] private Vector3 damageTextSpawnPositionOffset = new Vector3(0f, 1f, 0f);
-    [SerializeField] private SC_HealthBar healthBar = null;
+    [SerializeField] protected SC_HealthBar healthBar = null;
     [SerializeField] private SC_ScaleAnimation scaleAnimation = null;
 
     [Header("Save")]

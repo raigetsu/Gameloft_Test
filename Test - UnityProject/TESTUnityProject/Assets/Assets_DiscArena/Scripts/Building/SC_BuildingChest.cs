@@ -33,6 +33,7 @@ public class SC_BuildingChest : SC_BuildingMaster
         chestOpeningAnimation.Play();
         isPlayingOpeningAnimation = true;
         chestCam.Priority = 30;
+        healthBar.gameObject.SetActive(false);
     }
 
     public void PlayStarFx()
