@@ -8,9 +8,12 @@ public class SC_DiscMaster : MonoBehaviour
     [SerializeField] private LayerMask GroundLayer = 0;
     [SerializeField] private float timeToWaitWhenDestroyBuilding = 0.035f;
     [SerializeField] private Collider physicMatCollider = null;
+    [SerializeField] private SC_ScaleAnimation scaleAnimation = null;
+    
+    [Header("PARTICLE")]
     [SerializeField] private GameObject smokeParticle = null;
     [SerializeField] private GameObject[] spawnAdditionalParticle = null;
-    [SerializeField] private SC_ScaleAnimation scaleAnimation = null;
+    [SerializeField] private GameObject hitParticle = null;
 
     [Header("Data")]
     [SerializeField] private int attack = 0;
@@ -70,7 +73,8 @@ public class SC_DiscMaster : MonoBehaviour
         if (((1 << collision.gameObject.layer) & GroundLayer.value) == 0)
         {
             OnHit?.Invoke();
-
+            GameObject _HitParticle = Instantiate(hitParticle);
+            _HitParticle.transform.position = collision.GetContact(0).point;
             if (collision.gameObject.CompareTag("Building") && IsInMovement)
             {
                 SC_Vibrator.Vibrate(75);
