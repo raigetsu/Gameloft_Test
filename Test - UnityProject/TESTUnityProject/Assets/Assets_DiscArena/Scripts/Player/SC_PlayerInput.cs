@@ -50,7 +50,7 @@ public class SC_PlayerInput : MonoBehaviour
                             // Can update prediction
                             if (timerBeforeUpdatePrediction <= 0f)
                             {
-                                movementPrediction.CalculateTrajectory(gameManager.GetDiscPosition(), direction, 0f, 0);
+                                  movementPrediction.CalculateTrajectory(gameManager.GetDisc().gameObject.transform.position, direction, 0f, 0, 1f - gameManager.GetDisc().PhysicMatCollider.material.bounciness, gameManager.GetDisc().PhysicMatCollider.material.dynamicFriction);
                                 timerBeforeUpdatePrediction = delayBeforeUpdatePrediction;
                             }
                             else
@@ -132,7 +132,7 @@ public class SC_PlayerInput : MonoBehaviour
                     // Can update prediction
                     if (timerBeforeUpdatePrediction <= 0f)
                     {
-                        movementPrediction.CalculateTrajectory(gameManager.GetDisc().gameObject.transform.position, direction, 0f, 0, 1f - gameManager.GetDisc().PhysicMatCollider.material.bounciness, gameManager.GetDisc().PhysicMatCollider.material.dynamicFriction); ;
+                        movementPrediction.CalculateTrajectory(gameManager.GetDisc().gameObject.transform.position, direction, 0f, 0, 1f - gameManager.GetDisc().PhysicMatCollider.material.bounciness, gameManager.GetDisc().PhysicMatCollider.material.dynamicFriction);
                         timerBeforeUpdatePrediction = delayBeforeUpdatePrediction;
                     }
                     else

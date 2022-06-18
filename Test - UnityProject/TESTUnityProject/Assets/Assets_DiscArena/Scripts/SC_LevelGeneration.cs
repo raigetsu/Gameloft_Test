@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using UnityEngine.Events;
 
 public class SC_LevelGeneration : MonoBehaviour
 {
@@ -92,6 +93,53 @@ public class SC_LevelGeneration : MonoBehaviour
     {
         SC_BuildingList buildingList = FindObjectOfType<SC_BuildingList>();
 
+        string json = GetLevelJson(fileName);
+
+        LevelData data = JsonUtility.FromJson<LevelData>(json);
+
+        // Generate building
+        for (int i = 0; i < data.buildingList.Count; i++)
+        {
+            GameObject go = Instantiate(buildingList.GetPrefabs(data.buildingList[i].key));
+            go.transform.position = data.buildingList[i].position;
+            go.transform.rotation = data.buildingList[i].rotation;
+            go.transform.localScale = data.buildingList[i].scale;
+            go.GetComponentInChildren<SC_BuildingMaster>().LoadSave(data.buildingList[i]);
+        }
+
+        // Load Game Manager
+        FindObjectOfType<SC_GameManager>().LoadLevel(data);
+    }
+
+    static public IEnumerator LoadLevelAsync(string fileName, UnityAction OnComplete)
+    {
+        SC_BuildingList buildingList = FindObjectOfType<SC_BuildingList>();
+
+        string json = GetLevelJson(fileName);
+
+        LevelData data = JsonUtility.FromJson<LevelData>(json);
+
+        // Generate building
+        for (int i = 0; i < data.buildingList.Count; i++)
+        {
+            GameObject go = Instantiate(buildingList.GetPrefabs(data.buildingList[i].key));
+            go.transform.position = data.buildingList[i].position;
+            go.transform.rotation = data.buildingList[i].rotation;
+            go.transform.localScale = data.buildingList[i].scale;
+            go.GetComponentInChildren<SC_BuildingMaster>().LoadSave(data.buildingList[i]);
+            print("build");
+            yield return 0;
+        }
+
+        print("finish");
+        // Load Game Manager
+        FindObjectOfType<SC_GameManager>().LoadLevel(data);
+
+        OnComplete?.Invoke();
+    }
+
+    static private string GetLevelJson(string fileName)
+    {
 #if UNITY_EDITOR
         string destination = "Assets/StreamingAssets/" + fileName + ".json";
 
@@ -102,6 +150,7 @@ public class SC_LevelGeneration : MonoBehaviour
         destination = "Assets/StreamingAssets/" + fileName + ".json";
 
         string json = File.ReadAllText(destination);
+        return json;
 
 #elif UNITY_IOS
         string destination = Application.streamingAssetsPath + "/" + fileName + ".json";
@@ -113,6 +162,7 @@ public class SC_LevelGeneration : MonoBehaviour
         destination = Application.streamingAssetsPath + "/" + fileName + ".json";
 
         string json = File.ReadAllText(destination);
+        return json;
 #elif UNITY_ANDROID
         string destination = "jar:file://" + Application.dataPath + "!/assets/" + fileName + ".json";
         WWW wwwfile = new WWW(destination);
@@ -129,21 +179,7 @@ public class SC_LevelGeneration : MonoBehaviour
 
         StreamReader wr = new StreamReader(fileName);
         string json = wr.ReadToEnd();
+        return json;
 #endif
-
-        LevelData data = JsonUtility.FromJson<LevelData>(json);
-
-        // Generate building
-        for (int i = 0; i < data.buildingList.Count; i++)
-        {
-            GameObject go = Instantiate(buildingList.GetPrefabs(data.buildingList[i].key));
-            go.transform.position = data.buildingList[i].position;
-            go.transform.rotation = data.buildingList[i].rotation;
-            go.transform.localScale = data.buildingList[i].scale;
-            go.GetComponentInChildren<SC_BuildingMaster>().LoadSave(data.buildingList[i]);
-        }
-
-        // Load Game Manager
-        FindObjectOfType<SC_GameManager>().LoadLevel(data);
     }
 }
