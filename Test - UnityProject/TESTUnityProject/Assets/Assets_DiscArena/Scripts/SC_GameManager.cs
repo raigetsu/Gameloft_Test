@@ -52,6 +52,8 @@ public class SC_GameManager : MonoBehaviour
                 gameState = GameState.WaitToLaunchDisc;
                 SC_LoadingScreen.Instance.LoadingLevelOver();
             }));
+
+        SC_Vibrator.Init();
     }
 
     #region DISC
@@ -63,7 +65,10 @@ public class SC_GameManager : MonoBehaviour
         gameHUD.UpdateDiscCount(discCount);
         gameHUD.DisplayDiscInformation(false);
         discLastPressedButton.IncreaseUsedCount();
-        gameHUD.ActivateAllButton();
+        if (discCount > 0)
+            gameHUD.ActivateAllButton();
+        else
+            gameHUD.DisableAllButton();
     }
 
     public SC_DiscMaster GetDisc()
@@ -196,5 +201,10 @@ public class SC_GameManager : MonoBehaviour
     public void DisplayDiscInformation(bool hide)
     {
         gameHUD.DisplayDiscInformation(hide, discLastPressedButton.data);
+    }
+
+    public void DisableHUD()
+    {
+        gameHUD.DisableHUD();
     }
 }

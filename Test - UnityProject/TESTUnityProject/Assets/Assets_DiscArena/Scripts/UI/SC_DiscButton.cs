@@ -49,4 +49,9 @@ public class SC_DiscButton : MonoBehaviour
     {
         scaleAnimation.StartPlayAnimation();
     }
+
+    public void ForceDisable()
+    {
+        button.interactable = false;
+    }
 }

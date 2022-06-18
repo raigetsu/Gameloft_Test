@@ -22,6 +22,8 @@ public class SC_BuildingMaster : MonoBehaviour
     [SerializeField] private Vector3 damageTextSpawnPositionOffset = new Vector3(0f, 1f, 0f);
     [SerializeField] protected SC_HealthBar healthBar = null;
     [SerializeField] private SC_ScaleAnimation scaleAnimation = null;
+    [SerializeField] private bool isInvincible = false;
+
     [Header("PARTICLE SYSTEM")]
     [SerializeField] private ParticleSystem fireParticle = null;
     [SerializeField] private GameObject smokeParticle = null;
@@ -43,6 +45,12 @@ public class SC_BuildingMaster : MonoBehaviour
     // Return true if the building is destroy
     public bool TakeDamage(int damage)
     {
+        if (isInvincible)
+        {
+
+            return false;
+        }
+
         currentHealth -= damage;
 
         // Spawn Text Damage 
@@ -107,6 +115,11 @@ public class SC_BuildingMaster : MonoBehaviour
         {
             rotateObject = gameObject.transform.parent.gameObject.AddComponent<SC_RotateObject>();
             rotateObject.LoadSave(save.rotateObjectSave);
+        }
+
+        if(isInvincible)
+        {
+            healthBar.gameObject.SetActive(false);
         }
     }
 

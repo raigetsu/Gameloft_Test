@@ -77,7 +77,7 @@ public class SC_DiscMaster : MonoBehaviour
             _HitParticle.transform.position = collision.GetContact(0).point;
             if (collision.gameObject.CompareTag("Building") && IsInMovement)
             {
-                SC_Vibrator.Vibrate(75);
+                SC_Vibrator.Vibrate(50);
                 if (collision.gameObject.GetComponent<SC_BuildingMaster>().TakeDamage(attack))
                 {
                     IsInMovement = false;
