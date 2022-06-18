@@ -7,6 +7,7 @@ public class SC_DiscBomber : SC_DiscMaster
     [SerializeField] private int explodeDamage = 5;
     [SerializeField] private float explosionRange = 5f;
     [SerializeField] private GameObject explodeFx = null;
+    [SerializeField, Tooltip("-1 = unlimited")] private int possibleExplosionCount = 1;
 
     private void Start()
     {
@@ -15,17 +16,22 @@ public class SC_DiscBomber : SC_DiscMaster
 
     private void Explode()
     {
-        GameObject explosionFx = Instantiate(explodeFx);
-        explosionFx.transform.position = transform.position;
-
-        Collider[] hit = Physics.OverlapSphere(transform.position, explosionRange);
-
-        for (int i = 0; i < hit.Length; i++)
+        if (possibleExplosionCount > 0 || possibleExplosionCount == -1)
         {
-            if (hit[i].gameObject.CompareTag("Building"))
+            GameObject explosionFx = Instantiate(explodeFx);
+            explosionFx.transform.position = transform.position;
+
+            Collider[] hit = Physics.OverlapSphere(transform.position, explosionRange);
+
+            for (int i = 0; i < hit.Length; i++)
             {
-                hit[i].gameObject.GetComponent<SC_BuildingMaster>().TakeDamage(explodeDamage);
+                if (hit[i].gameObject.CompareTag("Building"))
+                {
+                    hit[i].gameObject.GetComponent<SC_BuildingMaster>().TakeDamage(explodeDamage);
+                }
             }
+
+            possibleExplosionCount -= 1;
         }
     }
 
