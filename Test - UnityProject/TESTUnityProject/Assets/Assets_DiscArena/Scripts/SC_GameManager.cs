@@ -19,6 +19,7 @@ public class SC_GameManager : MonoBehaviour
 
     public enum GameState
     {
+        LoadingLevel,
         WaitToChooseDisc,
         WaitToLaunchDisc,
         DiscIsMoving,
@@ -39,7 +40,18 @@ public class SC_GameManager : MonoBehaviour
 
         // Load level
         playerDataManager = FindObjectOfType<SC_PlayerDataManager>();
-        SC_LevelGeneration.LoadLevel(SC_Rank.GetLevelName(playerDataManager.CurrentRank, playerDataManager.RankLevel, playerDataManager.RowCount));
+
+        gameState = GameState.LoadingLevel;
+
+        //SC_LevelGeneration.LoadLevel(SC_Rank.GetLevelName(playerDataManager.CurrentRank, playerDataManager.RankLevel, playerDataManager.RowCount));
+
+        SC_LoadingScreen.Instance.StartLoadingLevel();
+        StartCoroutine(SC_LevelGeneration.LoadLevelAsync(SC_Rank.GetLevelName(playerDataManager.CurrentRank, playerDataManager.RankLevel, playerDataManager.RowCount),
+            () =>
+            {
+                gameState = GameState.WaitToLaunchDisc;
+                SC_LoadingScreen.Instance.LoadingLevelOver();
+            }));
     }
 
     #region DISC

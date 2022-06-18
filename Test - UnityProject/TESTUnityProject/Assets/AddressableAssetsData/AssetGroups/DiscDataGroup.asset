@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: BuildingGroup
+  m_Name: DiscDataGroup
   m_EditorClassIdentifier: 
-  m_GroupName: BuildingGroup
+  m_GroupName: DiscDataGroup
   m_Data:
     m_SerializedData: []
-  m_GUID: 829b4161cb35aa641a385ae42d2b3e19
+  m_GUID: 581d73d7cb8cec8418b1d636fd4dfc6e
   m_SerializeEntries:
-  - m_GUID: 05da4d464198fbe49bc94a958a045c49
-    m_Address: Prefab_WoodFence
+  - m_GUID: 0838de7a1ea447e45ad43cf07aaf842d
+    m_Address: DefaultDiscData
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Building
-  - m_GUID: 9ae33c6f96fd781458a6710025257e80
-    m_Address: Prefab_TargetChest
+    - Disc
+  - m_GUID: 15e6aa3ad6cfe7b4cbe5d8eb42c2d695
+    m_Address: SprinterDiscData
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Building
+    - Disc
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1ad8aaae46b701b4393c3e3d143bb01c, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 6eb166d390e8bbb4788d02fb347dd509, type: 2}
-    - {fileID: 11400000, guid: 737d7854aab5ac148afc3226de1e34d8, type: 2}
+    - {fileID: 11400000, guid: 9acff9a1e18c6e54888ccb9d890c1e02, type: 2}
+    - {fileID: 11400000, guid: 21c69b7440fe1c242ba869eccd65a593, type: 2}

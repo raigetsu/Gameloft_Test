@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8a6da94967d2b43b14da8d52550e37, type: 3}
   m_Name: SprinterDiscData
   m_EditorClassIdentifier: 
+  addressablesKey: SprinterDiscData
   unlockedRank: 0
   unlockedRankLevel: 2
   prefab: {fileID: 930116979807966473, guid: 9ea5eceb62c1c1b41ae84a6fe88d23df, type: 3}

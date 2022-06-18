@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DiscData",menuName = "Create DiscData")]
 public class SCO_DiscData : ScriptableObject
 {
+    [Header("KEY")]
+    [SerializeField] private string addressablesKey = null;
+
     [Header("RANK")]
     [SerializeField] private SC_Rank.ERank unlockedRank = SC_Rank.ERank.Bronze;
     [SerializeField] private int unlockedRankLevel = 3;
@@ -19,4 +22,5 @@ public class SCO_DiscData : ScriptableObject
     public GameObject Prefab { get => prefab; }
     public Sprite IconTexture { get => iconTexture; }
     public int UsableCount { get => usableCount; }
+    public string AddressablesKey { get => addressablesKey; }
 }
