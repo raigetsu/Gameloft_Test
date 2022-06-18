@@ -84,7 +84,7 @@ public class SC_PlayerDataManager : MonoBehaviour
         {
             rowCount = 0;
 
-            if ((int)currentRank != (int)SC_Rank.ERank.Count - 1 &&
+            if (((int)currentRank != (int)SC_Rank.ERank.Count - 1 && rankLevel == 1) ||
                 rankLevel != 1)
             {
                 if (rankLevel == 1)
@@ -113,7 +113,7 @@ public class SC_PlayerDataManager : MonoBehaviour
                 }
             }
         }
-        print(rankLevel);
+
         Save();
     }
 
@@ -123,7 +123,7 @@ public class SC_PlayerDataManager : MonoBehaviour
         Save();
     }
 
-    private void  LoadDiscAddressables(PlayerSave playerSave)
+    private void LoadDiscAddressables(PlayerSave playerSave)
     {
         var operation = Addressables.InitializeAsync();
         SC_LoadingScreen.Instance.AddASyncOperationHandle(operation);
@@ -138,7 +138,7 @@ public class SC_PlayerDataManager : MonoBehaviour
             SC_LoadingScreen.Instance.AddASyncOperationHandle(allDiscDataOperation);
 
             // Load disc with save
-            if(playerSave != null)
+            if (playerSave != null)
             {
                 // Get all unlocked disc data
                 allDiscDataOperation.Completed += (obj) =>
@@ -155,7 +155,7 @@ public class SC_PlayerDataManager : MonoBehaviour
                         }
                     }
                 };
-            }        
+            }
         };
     }
 }

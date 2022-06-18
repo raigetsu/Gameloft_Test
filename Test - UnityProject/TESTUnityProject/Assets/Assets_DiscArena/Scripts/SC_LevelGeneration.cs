@@ -84,7 +84,7 @@ public class SC_LevelGeneration : MonoBehaviour
     }
 
     static public void LoadLevel(string fileName)
-    {
+    {        
         SC_BuildingList buildingList = FindObjectOfType<SC_BuildingList>();
 
         string json = GetLevelJson(fileName);
@@ -121,11 +121,10 @@ public class SC_LevelGeneration : MonoBehaviour
             go.transform.rotation = data.buildingList[i].rotation;
             go.transform.localScale = data.buildingList[i].scale;
             go.GetComponentInChildren<SC_BuildingMaster>().LoadSave(data.buildingList[i]);
-            print("build");
+
             yield return 0;
         }
 
-        print("finish");
         // Load Game Manager
         FindObjectOfType<SC_GameManager>().LoadLevel(data);
 

@@ -19,8 +19,8 @@ public class SC_Rank : MonoBehaviour
             ERank.Bronze,
             new Dictionary<int,int>()
             {
-                {1,5 },
-                {2,4 },
+                {1,1 },
+                {2,1 },
                 {3,1 }
             }
         },
