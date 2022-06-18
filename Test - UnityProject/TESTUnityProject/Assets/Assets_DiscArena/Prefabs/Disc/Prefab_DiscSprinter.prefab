@@ -154,11 +154,32 @@ MonoBehaviour:
     m_Bits: 64
   timeToWaitWhenDestroyBuilding: 0.035
   physicMatCollider: {fileID: 9094660066616837089}
+  smokeParticle: {fileID: 273269452793480151, guid: 7bc1df1065f26de449da00107d5c0d93, type: 3}
+  spawnAdditionalParticle: []
+  scaleAnimation: {fileID: 4514069558593749713}
   attack: 3
   moveSpeed: 15
   OnMovementStop:
     m_PersistentCalls:
       m_Calls: []
   OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4514069558593749713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4861469955948169398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2be308aa0c3b24792f0b50d1b98365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToScale: {fileID: 4861469955948169398}
+  scaleAnimationFactor: 1.2
+  scaleAnimationSpeed: 2
+  OnScaleAnimationOver:
     m_PersistentCalls:
       m_Calls: []

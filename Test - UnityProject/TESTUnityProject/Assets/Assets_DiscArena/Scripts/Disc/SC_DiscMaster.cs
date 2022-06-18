@@ -8,6 +8,9 @@ public class SC_DiscMaster : MonoBehaviour
     [SerializeField] private LayerMask GroundLayer = 0;
     [SerializeField] private float timeToWaitWhenDestroyBuilding = 0.035f;
     [SerializeField] private Collider physicMatCollider = null;
+    [SerializeField] private GameObject smokeParticle = null;
+    [SerializeField] private GameObject[] spawnAdditionalParticle = null;
+    [SerializeField] private SC_ScaleAnimation scaleAnimation = null;
 
     [Header("Data")]
     [SerializeField] private int attack = 0;
@@ -86,5 +89,25 @@ public class SC_DiscMaster : MonoBehaviour
         yield return new WaitForSeconds(timeToWaitWhenDestroyBuilding);
         rb.velocity = savedVelocity;
         IsInMovement = true;
+    }
+
+    public void PlaySpawnFx()
+    {
+        GameObject go = Instantiate(smokeParticle);
+        go.transform.position = transform.position;
+
+        for (int i = 0; i < spawnAdditionalParticle.Length; i++)
+        {
+            go = Instantiate(spawnAdditionalParticle[i]);
+            go.transform.position = transform.position;
+        }
+
+        scaleAnimation.StartPlayAnimation();
+    }
+
+    public void PlayDestroyParticle()
+    {
+        GameObject go = Instantiate(smokeParticle);
+        go.transform.position = transform.position;
     }
 }
