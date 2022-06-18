@@ -172,9 +172,10 @@ MonoBehaviour:
     m_Bits: 64
   timeToWaitWhenDestroyBuilding: 0.01
   physicMatCollider: {fileID: 9094660066616837089}
+  scaleAnimation: {fileID: 4514069558593749713}
   smokeParticle: {fileID: 273269452793480151, guid: 7bc1df1065f26de449da00107d5c0d93, type: 3}
   spawnAdditionalParticle: []
-  scaleAnimation: {fileID: 4514069558593749713}
+  hitParticle: {fileID: 2248470975099539731, guid: 71ade78c729a36a40894fa607e1074fa, type: 3}
   attack: 3
   moveSpeed: 15
   OnMovementStop:
