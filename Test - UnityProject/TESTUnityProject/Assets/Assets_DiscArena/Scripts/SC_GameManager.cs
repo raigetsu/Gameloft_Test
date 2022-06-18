@@ -63,6 +63,7 @@ public class SC_GameManager : MonoBehaviour
         gameHUD.UpdateDiscCount(discCount);
         gameHUD.DisplayDiscInformation(false);
         discLastPressedButton.IncreaseUsedCount();
+        gameHUD.ActivateAllButton();
     }
 
     public SC_DiscMaster GetDisc()
@@ -87,8 +88,6 @@ public class SC_GameManager : MonoBehaviour
 
         currentDisc.OnMovementStop.AddListener(OnDiscStop);
         gameState = GameState.WaitToLaunchDisc;
-
-        gameHUD.DisplayDiscInformation(true, discLastPressedButton.data);
     }
 
     // Call Change Disc
@@ -96,10 +95,13 @@ public class SC_GameManager : MonoBehaviour
     public void ChangeDiscWithButton(SC_DiscButton pDiscButton)
     {
         if (discLastPressedButton != null && discLastPressedButton != pDiscButton)
+        {
             discLastPressedButton.TryEnableButton();
+        }
 
         ChangeDisc(pDiscButton.data.Prefab);
         discLastPressedButton = pDiscButton;
+        gameHUD.DisplayDiscInformation(true, discLastPressedButton.data);
 
         gameState = GameState.WaitToLaunchDisc;
     }
@@ -189,5 +191,10 @@ public class SC_GameManager : MonoBehaviour
         gameHUD.UpdateCreatorName(data.creatorName);
 
         gameHUD.DisplayDiscInformation(true, discLastPressedButton.data);
+    }
+
+    public void DisplayDiscInformation(bool hide)
+    {
+        gameHUD.DisplayDiscInformation(hide, discLastPressedButton.data);
     }
 }

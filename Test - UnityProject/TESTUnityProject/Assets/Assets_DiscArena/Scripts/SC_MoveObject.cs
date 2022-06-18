@@ -22,15 +22,29 @@ public class SC_MoveObject : MonoBehaviour
     private bool update = true;
     private bool playReverse = false;
 
+    private float distanceFromArrivePoint = 0f;
+
     private void Update()
     {
         if (update)
         {
             gameObject.transform.position += direction * speed * Time.deltaTime;
-            if (Vector3.Distance(gameObject.transform.position, checkpoint[posIndex]) <= 0.2f)
+            float newDistance = Vector3.Distance(gameObject.transform.position, checkpoint[posIndex]);
+
+            if (distanceFromArrivePoint <= newDistance)
             {
+                // new distance exceed last distance
                 IsArriveAtDestination();
             }
+            else
+            {
+                distanceFromArrivePoint = newDistance;
+                if (newDistance <= 0.2f)
+                {
+                    IsArriveAtDestination();
+                }
+            }
+
         }
     }
 
@@ -58,6 +72,8 @@ public class SC_MoveObject : MonoBehaviour
             direction = checkpoint[posIndex] - checkpoint[startIndex];
             direction = direction.normalized;
         }
+
+        distanceFromArrivePoint = Vector3.Distance(gameObject.transform.position, checkpoint[posIndex]);
     }
 
     public void LoadSave(SaveMoveObject save)
@@ -70,6 +86,8 @@ public class SC_MoveObject : MonoBehaviour
         direction = direction.normalized;
         gameObject.transform.position = checkpoint[0];
         gameObject.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(direction);
+
+        distanceFromArrivePoint = Vector3.Distance(gameObject.transform.position, checkpoint[posIndex]);
     }
 
     public SaveMoveObject Save()

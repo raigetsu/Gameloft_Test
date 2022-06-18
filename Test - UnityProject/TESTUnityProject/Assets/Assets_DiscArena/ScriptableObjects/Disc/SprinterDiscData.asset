@@ -16,7 +16,7 @@ MonoBehaviour:
   unlockedRank: 0
   unlockedRankLevel: 2
   prefab: {fileID: 930116979807966473, guid: 9ea5eceb62c1c1b41ae84a6fe88d23df, type: 3}
-  iconTexture: {fileID: 21300000, guid: 147d3f6f195fa934aad1bb29ea0714e0, type: 3}
+  iconTexture: {fileID: 21300000, guid: dd3f33a45132ad7488f5d03c068551ce, type: 3}
   usableCount: 1
   discName: SPRINTER
   discInformation: Better speed and damages

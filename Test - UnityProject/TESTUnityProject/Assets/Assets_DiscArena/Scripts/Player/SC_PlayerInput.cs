@@ -29,8 +29,9 @@ public class SC_PlayerInput : MonoBehaviour
                     if (gameManager.IsPointerOverUIElement() == false)
                     {
                         canUpdate = true;
-                        inputStartPos =  new Vector3(Input.GetTouch(0).position.x, 0f, Input.GetTouch(0).position.y);
+                        inputStartPos = new Vector3(Input.GetTouch(0).position.x, 0f, Input.GetTouch(0).position.y);
                         timerBeforeUpdatePrediction = 0f;
+                        gameManager.DisplayDiscInformation(false);
                     }
                     else
                     {
@@ -50,7 +51,7 @@ public class SC_PlayerInput : MonoBehaviour
                             // Can update prediction
                             if (timerBeforeUpdatePrediction <= 0f)
                             {
-                                  movementPrediction.CalculateTrajectory(gameManager.GetDisc().gameObject.transform.position, direction, 0f, 0, 1f - gameManager.GetDisc().PhysicMatCollider.material.bounciness, gameManager.GetDisc().PhysicMatCollider.material.dynamicFriction);
+                                movementPrediction.CalculateTrajectory(gameManager.GetDisc().gameObject.transform.position, direction, 0f, 0, 1f - gameManager.GetDisc().PhysicMatCollider.material.bounciness, gameManager.GetDisc().PhysicMatCollider.material.dynamicFriction);
                                 timerBeforeUpdatePrediction = delayBeforeUpdatePrediction;
                             }
                             else
@@ -81,6 +82,7 @@ public class SC_PlayerInput : MonoBehaviour
                         else
                         {
                             movementPrediction.HidePrediction();
+                            gameManager.DisplayDiscInformation(true);
                         }
                     }
                 }
@@ -96,6 +98,7 @@ public class SC_PlayerInput : MonoBehaviour
                     inputStartPos = Input.mousePosition;
                     timerBeforeUpdatePrediction = 0f;
                     canUpdate = true;
+                    gameManager.DisplayDiscInformation(false);
                 }
                 else
                 {
@@ -116,6 +119,7 @@ public class SC_PlayerInput : MonoBehaviour
                     else
                     {
                         movementPrediction.HidePrediction();
+                        gameManager.DisplayDiscInformation(true);
                     }
                 }
             }

@@ -120,14 +120,24 @@ public class SC_GameHUD : MonoBehaviour
     {
         for (int i = 0; i < discButtonList.Count; i++)
         {
+            if (discButtonList[i].TryEnableButton())
+            {
+                discButtonList[i].PlayScaleAnimation();
+            }
+        }
+    }
+
+    public void ActivateAllButton()
+    {
+        for (int i = 0; i < discButtonList.Count; i++)
+        {
             discButtonList[i].TryEnableButton();
-            discButtonList[i].PlayScaleAnimation();
         }
     }
 
     public void DisplayDiscInformation(bool pDisplayinformation, SCO_DiscData pDiscData = null)
     {
-        if(pDisplayinformation)
+        if (pDisplayinformation)
         {
             discInformationPanel.SetActive(true);
             discNameText.text = pDiscData.DiscName;

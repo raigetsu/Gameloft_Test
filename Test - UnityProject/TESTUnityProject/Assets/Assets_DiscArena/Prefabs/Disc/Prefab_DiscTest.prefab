@@ -148,7 +148,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
-  timeToWaitWhenDestroyBuilding: 0.035
+  timeToWaitWhenDestroyBuilding: 0.01
   physicMatCollider: {fileID: 9094660066616837089}
   smokeParticle: {fileID: 273269452793480151, guid: 7bc1df1065f26de449da00107d5c0d93, type: 3}
   spawnAdditionalParticle: []
