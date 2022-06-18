@@ -13,6 +13,9 @@ public class SC_GameHUD : MonoBehaviour
     [Header("DISC")]
     [SerializeField] private GameObject discButtonPrefab = null;
     [SerializeField] private GameObject discButtonLayout = null;
+    [SerializeField] private GameObject discInformationPanel = null;
+    [SerializeField] private Text discNameText = null;
+    [SerializeField] private Text discInformationText = null;
 
     [Header("DISC COUNT")]
     [SerializeField] private Text remainingDiscText = null;
@@ -119,6 +122,20 @@ public class SC_GameHUD : MonoBehaviour
         {
             discButtonList[i].TryEnableButton();
             discButtonList[i].PlayScaleAnimation();
+        }
+    }
+
+    public void DisplayDiscInformation(bool pDisplayinformation, SCO_DiscData pDiscData = null)
+    {
+        if(pDisplayinformation)
+        {
+            discInformationPanel.SetActive(true);
+            discNameText.text = pDiscData.DiscName;
+            discInformationText.text = pDiscData.DiscInformation;
+        }
+        else
+        {
+            discInformationPanel.SetActive(false);
         }
     }
 }

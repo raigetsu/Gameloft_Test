@@ -18,3 +18,7 @@ MonoBehaviour:
   prefab: {fileID: 930116979807966473, guid: 46a564fdc2d990d4894584a80be70de1, type: 3}
   iconTexture: {fileID: 21300000, guid: d4db6128bb91ebf4692be8b5830386af, type: 3}
   usableCount: -1
+  discName: CLASSIC
+  discInformation: 'Normal puck,
+
+    unlimited launch'

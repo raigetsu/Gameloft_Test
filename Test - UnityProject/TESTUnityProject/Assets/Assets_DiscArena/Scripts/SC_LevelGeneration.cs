@@ -61,13 +61,7 @@ public class SC_LevelGeneration : MonoBehaviour
 
         for (int i = 0; i < BuildingList.Length; i++)
         {
-            SC_BuildingMaster.BuildingSave newBuilding = new SC_BuildingMaster.BuildingSave();
-            newBuilding.key = BuildingList[i].Key;
-            newBuilding.position = BuildingList[i].transform.parent.transform.position;
-            newBuilding.rotation = BuildingList[i].transform.parent.transform.rotation;
-            newBuilding.scale = BuildingList[i].transform.parent.transform.localScale;
-            newBuilding.health = BuildingList[i].MaxHealth;
-            data.buildingList.Add(newBuilding);
+            data.buildingList.Add(BuildingList[i].Save());
         }
 
         // Save disc count

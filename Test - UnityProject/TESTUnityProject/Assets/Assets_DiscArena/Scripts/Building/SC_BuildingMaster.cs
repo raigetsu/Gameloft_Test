@@ -13,6 +13,8 @@ public class SC_BuildingMaster : MonoBehaviour
         public Quaternion rotation;
         public Vector3 scale;
         public int health = 0;
+        public SC_MoveObject.SaveMoveObject moveObjectSave = null;
+        public SC_RotateObject.SaveRotateObject rotateObjectSave = null;
     }
 
     [SerializeField] private int health = 0;
@@ -23,6 +25,8 @@ public class SC_BuildingMaster : MonoBehaviour
 
     [Header("Save")]
     [SerializeField] private string key = "BuildingMaster";
+    [SerializeField, Tooltip("Keep null if no use")] private SC_MoveObject moveObject = null;
+    [SerializeField, Tooltip("Keep null if no use")] private SC_RotateObject rotateObject = null;
 
     public string Key { get => key; }
     public int currentHealth { get; private set; } = 0;
@@ -79,5 +83,40 @@ public class SC_BuildingMaster : MonoBehaviour
     {
         health = save.health;
         currentHealth = health;
+
+        if (save.moveObjectSave.checkpoint.Length > 1)
+        {
+            moveObject = gameObject.transform.parent.gameObject.AddComponent<SC_MoveObject>();
+            moveObject.LoadSave(save.moveObjectSave);
+        }
+
+        if(save.rotateObjectSave.useRotateObject == true)
+        {
+            rotateObject = gameObject.transform.parent.gameObject.AddComponent<SC_RotateObject>();
+            rotateObject.LoadSave(save.rotateObjectSave);
+        }
+    }
+
+    public BuildingSave Save()
+    {
+        BuildingSave save = new BuildingSave();
+
+        save.key = Key;
+        save.position = transform.parent.transform.position;
+        save.rotation = transform.parent.transform.rotation;
+        save.scale = transform.parent.transform.localScale;
+        save.health = MaxHealth;
+
+        if (moveObject != null)
+            save.moveObjectSave = moveObject.Save();
+        else
+            save.moveObjectSave = null;
+
+        if (rotateObject != null)
+            save.rotateObjectSave = rotateObject.Save();
+        else
+            save.rotateObjectSave = null;
+
+        return save;
     }
 }

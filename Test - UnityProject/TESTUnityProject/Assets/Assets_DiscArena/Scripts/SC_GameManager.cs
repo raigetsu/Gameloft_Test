@@ -61,6 +61,7 @@ public class SC_GameManager : MonoBehaviour
         gameState = GameState.DiscIsMoving;
         discCount--;
         gameHUD.UpdateDiscCount(discCount);
+        gameHUD.DisplayDiscInformation(false);
         discLastPressedButton.IncreaseUsedCount();
     }
 
@@ -86,6 +87,8 @@ public class SC_GameManager : MonoBehaviour
 
         currentDisc.OnMovementStop.AddListener(OnDiscStop);
         gameState = GameState.WaitToLaunchDisc;
+
+        gameHUD.DisplayDiscInformation(true, discLastPressedButton.data);
     }
 
     // Call Change Disc
@@ -184,5 +187,7 @@ public class SC_GameManager : MonoBehaviour
 
         // Setup level creator name
         gameHUD.UpdateCreatorName(data.creatorName);
+
+        gameHUD.DisplayDiscInformation(true, discLastPressedButton.data);
     }
 }
