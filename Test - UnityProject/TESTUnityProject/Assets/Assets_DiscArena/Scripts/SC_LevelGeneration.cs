@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 
 public class SC_LevelGeneration : MonoBehaviour
 {
@@ -84,7 +85,7 @@ public class SC_LevelGeneration : MonoBehaviour
     }
 
     static public void LoadLevel(string fileName)
-    {        
+    {
         SC_BuildingList buildingList = FindObjectOfType<SC_BuildingList>();
 
         string json = GetLevelJson(fileName);
@@ -133,6 +134,7 @@ public class SC_LevelGeneration : MonoBehaviour
 
     static private string GetLevelJson(string fileName)
     {
+        // print(fileName);
 #if UNITY_EDITOR
         string destination = "Assets/StreamingAssets/" + fileName + ".json";
 
@@ -157,12 +159,14 @@ public class SC_LevelGeneration : MonoBehaviour
         string json = File.ReadAllText(destination);
         return json;
 #elif UNITY_ANDROID
-        string destination = "jar:file://" + Application.dataPath + "!/assets/" + fileName + ".json";
+        string destination = "jar:file:///" + Application.dataPath + "!/assets/" + fileName + ".json";
+
         WWW wwwfile = new WWW(destination);
         while (!wwwfile.isDone) { }
-        if (wwwfile.Current == null)
+
+        if (wwwfile.bytesDownloaded == 0)
         {
-            fileName = SC_Rank.GetLevelName(SC_Rank.ERank.Bronze, 3, 0);
+            fileName = SC_Rank.GetLevelName(SC_Rank.ERank.Bronze, 2, 0);
             destination = "jar:file://" + Application.dataPath + "!/assets/" + fileName + ".json";
             wwwfile = new WWW(destination);
             while (!wwwfile.isDone) { }

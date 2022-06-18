@@ -34,6 +34,7 @@ public class SC_BuildingChest : SC_BuildingMaster
         isPlayingOpeningAnimation = true;
         chestCam.Priority = 30;
         healthBar.gameObject.SetActive(false);
+        FindObjectOfType<SC_GameManager>().DisableHUD();
     }
 
     public void PlayStarFx()

@@ -15,6 +15,11 @@ public static class SC_Vibrator
     public static AndroidJavaObject vibrator;
 #endif
 
+    public static void Init()
+    {
+        // Use for generate the static variable
+    }
+
     public static void Vibrate(long milliseconds = 250)
     {
         if(IsAndroid())

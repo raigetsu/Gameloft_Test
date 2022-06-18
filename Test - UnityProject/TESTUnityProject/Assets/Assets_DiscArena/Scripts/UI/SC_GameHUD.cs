@@ -135,6 +135,14 @@ public class SC_GameHUD : MonoBehaviour
         }
     }
 
+    public void DisableAllButton()
+    {
+        for (int i = 0; i < discButtonList.Count; i++)
+        {
+            discButtonList[i].ForceDisable();
+        }
+    }
+
     public void DisplayDiscInformation(bool pDisplayinformation, SCO_DiscData pDiscData = null)
     {
         if (pDisplayinformation)
@@ -147,5 +155,10 @@ public class SC_GameHUD : MonoBehaviour
         {
             discInformationPanel.SetActive(false);
         }
+    }
+
+    public void DisableHUD()
+    {
+        hudPanel.SetActive(false);
     }
 }

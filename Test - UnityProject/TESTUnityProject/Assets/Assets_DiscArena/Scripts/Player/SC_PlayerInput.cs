@@ -161,7 +161,7 @@ public class SC_PlayerInput : MonoBehaviour
             canUpdate = false;
         }
 
-        if(gameManager.gameState == SC_GameManager.GameState.DiscIsMoving)
+        if (gameManager.gameState == SC_GameManager.GameState.DiscIsMoving)
         {
 #if (UNITY_ANDROID ||UNITY_IOS) && !UNITY_EDITOR
             if(Input.touchCount > 0)
@@ -172,7 +172,7 @@ public class SC_PlayerInput : MonoBehaviour
                 }
             }
 #elif UNITY_EDITOR
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 OnInputTouch?.Invoke();
             }
