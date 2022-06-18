@@ -60,12 +60,17 @@ public class SC_GameManager : MonoBehaviour
     #region DISC CHANGEMENT
     public void ChangeDisc(GameObject pNewDiscPrefab)
     {
-        Destroy(currentDisc.transform.parent.gameObject);
+        if (currentDisc != null)
+        {
+            currentDisc.PlayDestroyParticle();
+            Destroy(currentDisc.transform.parent.gameObject);
+        }
 
         GameObject go = Instantiate(pNewDiscPrefab);
 
         currentDisc = go.GetComponentInChildren<SC_DiscMaster>();
         go.transform.position = defaultPos;
+        currentDisc.PlaySpawnFx();
 
         currentDisc.OnMovementStop.AddListener(OnDiscStop);
         gameState = GameState.WaitToLaunchDisc;

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SC_DiscButton : MonoBehaviour
 {
-    
+
     [SerializeField] private Button button = null;
     [SerializeField] private Image discIcon = null;
     [SerializeField] private SC_ScaleAnimation scaleAnimation = null;
@@ -28,7 +28,9 @@ public class SC_DiscButton : MonoBehaviour
     public void TryEnableButton()
     {
         if (data.UsableCount != -1)
-            button.interactable = currentUsedCount >= data.UsableCount;
+        {
+            button.interactable = currentUsedCount < data.UsableCount;
+        }
         else
             button.interactable = true;
     }
